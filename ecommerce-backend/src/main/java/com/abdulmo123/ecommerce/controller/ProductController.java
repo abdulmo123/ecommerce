@@ -3,6 +3,7 @@ package com.abdulmo123.ecommerce.controller;
 import com.abdulmo123.ecommerce.exception.CartNotFoundException;
 import com.abdulmo123.ecommerce.exception.CategoryNotFoundException;
 import com.abdulmo123.ecommerce.exception.ProductNotFoundException;
+import com.abdulmo123.ecommerce.model.Cart;
 import com.abdulmo123.ecommerce.model.Product;
 import com.abdulmo123.ecommerce.repository.CartRepository;
 import com.abdulmo123.ecommerce.repository.CategoryRepository;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -87,44 +90,38 @@ public class ProductController {
 
 
     /* GET & POST for product-cart relationship */
-    /*
     @GetMapping("/carts/{cartId}/products/all")
     public ResponseEntity<List<Product>> getAllProductsByCartId(@PathVariable (value = "cartId") Long cartId) {
-        cartService.findCartById(cartId);
+//        Cart cart = cartService.findCartById(cartId);
 
-        List<Product> products = productService.findProductByCartId(cartId);
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new CartNotFoundException("Cart with id: " + cartId + " not found!"));
+
+        List<Product> products = new ArrayList<>();
+        products.addAll(cart.getCartProducts());
+
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
+    @PostMapping("/carts/{cartId}/products/add/{productId}")
+    public ResponseEntity<Product> addProductToCart (@PathVariable(value = "cartId") Long cartId, @PathVariable(value="productId") Long productId) {
 
-    @PostMapping("/carts/{cartId}/products/add")
-    public ResponseEntity<Product> addProductToCart (@PathVariable(value = "cartId") Long cartId, @RequestBody Product product) {
+        Product newCartProduct = productService.findProductById(productId);
+        Product finalNewCartProduct = newCartProduct;
 
-        Product newCartProduct = cartRepository.findById(cartId)
-                .map(cart -> {
-                    return productService.addProduct(product);
-                })
-                .orElseThrow(() -> new CartNotFoundException("Cart with id: " + cartId + " not found!"));
+        if (productRepository.existsById(productId)) {
+            newCartProduct = cartRepository.findById(cartId)
+                    .map(cart -> {
+                        cart.getCartProducts().add(finalNewCartProduct);
+                        return productService.addProduct(finalNewCartProduct);
+                    })
+                    .orElseThrow(() -> new CartNotFoundException("Cart with id: " + cartId + " not found!"));
+
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
         return new ResponseEntity<>(newCartProduct, HttpStatus.CREATED);
     }
-
-    @PostMapping("/carts/{cartId}/products/add/{productId}")
-    public ResponseEntity<Product> addProductToCart (@PathVariable(value = "cartId") Long cartId, @PathVariable(value = "productId") Long productId) {
-
-        // check if product with id exists
-        // if it does, set(add) it to a cart
-        Product newCartProduct = productService.findProductById(productId);
-        Product finalNewCartProduct = newCartProduct;
-        newCartProduct = cartRepository.findCartById(cartId)
-                .map(cart -> {
-//                    finalNewCartProduct.setCart(cart);
-                    return productService.addProduct(finalNewCartProduct);
-                })
-                .orElseThrow(() -> new CartNotFoundException("Cart with id: " + cartId + " was not found!") );
-
-        return new ResponseEntity<> (newCartProduct, HttpStatus.OK);
-    }
-
-     */
 }

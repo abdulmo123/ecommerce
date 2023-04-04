@@ -63,10 +63,10 @@ public class ProductService {
         return this.productRepository.findProductByCategory(category);
     }
 
-    public List<Product> findProductByCartId(Long cartId) {
+    /*public List<Product> findProductByCartId(Long cartId) {
         Cart cart = this.cartRepository.findById(cartId)
                 .orElseThrow(() -> new CartNotFoundException("Cart with id: " + cartId + " was not found!"));
 
         return this.productRepository.findProductByCart(cart);
-    }
+    }*/
 }
