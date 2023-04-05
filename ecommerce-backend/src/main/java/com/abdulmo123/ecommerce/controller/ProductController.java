@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api")
@@ -142,12 +143,18 @@ public class ProductController {
         Cart cart = cartRepository.findById(cartId)
                 .orElseThrow(() -> new CartNotFoundException("Cart with id: " + cartId + " not found!"));
 
+        Product product = productService.findProductById(productId);
+
         List<Product> cartProducts = cart.getCartProducts();
-        cartProducts.clear();
+        for (int i = 0; i < cartProducts.size(); i++) {
+            if (Objects.equals(cartProducts.get(i).getId(), productId)) {
+                cartProducts.remove(i);
+            }
+        }
+
         cart.setCartProducts(cartProducts);
         cartRepository.save(cart);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 }
