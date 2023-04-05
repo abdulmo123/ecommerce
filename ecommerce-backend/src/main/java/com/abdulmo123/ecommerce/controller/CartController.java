@@ -1,7 +1,6 @@
 package com.abdulmo123.ecommerce.controller;
 
 import com.abdulmo123.ecommerce.model.Cart;
-import com.abdulmo123.ecommerce.model.Product;
 import com.abdulmo123.ecommerce.repository.CartRepository;
 import com.abdulmo123.ecommerce.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;

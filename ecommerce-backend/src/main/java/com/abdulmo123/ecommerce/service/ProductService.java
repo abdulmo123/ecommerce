@@ -1,9 +1,7 @@
 package com.abdulmo123.ecommerce.service;
 
-import com.abdulmo123.ecommerce.exception.CartNotFoundException;
 import com.abdulmo123.ecommerce.exception.CategoryNotFoundException;
 import com.abdulmo123.ecommerce.exception.ProductNotFoundException;
-import com.abdulmo123.ecommerce.model.Cart;
 import com.abdulmo123.ecommerce.model.Category;
 import com.abdulmo123.ecommerce.model.Product;
 import com.abdulmo123.ecommerce.repository.CartRepository;
@@ -42,7 +40,6 @@ public class ProductService {
     }
 
     public Product addProduct (Product product) {
-//        product.setCategory(new Category());
         return productRepository.save(product);
     }
 
@@ -63,10 +60,4 @@ public class ProductService {
         return this.productRepository.findProductByCategory(category);
     }
 
-    /*public List<Product> findProductByCartId(Long cartId) {
-        Cart cart = this.cartRepository.findById(cartId)
-                .orElseThrow(() -> new CartNotFoundException("Cart with id: " + cartId + " was not found!"));
-
-        return this.productRepository.findProductByCart(cart);
-    }*/
 }

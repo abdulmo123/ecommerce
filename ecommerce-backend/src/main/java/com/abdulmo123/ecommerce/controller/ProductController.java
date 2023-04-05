@@ -40,14 +40,11 @@ public class ProductController {
         this.productService = productService;
     }
 
-    /* GET & POST for product-category relationship */
     @GetMapping("/categories/{categoryId}/products/all")
     public ResponseEntity<List<Product>> getAllProductsByCategoryId( @PathVariable (value = "categoryId") Long categoryId) {
         if (!categoryRepository.existsById(categoryId)) {
             categoryRepository.findCategoryById(categoryId);
         }
-
-//        categoryService.findCategoryById(categoryId);
 
         List<Product> products = productService.findProductByCategoryId(categoryId);
         return new ResponseEntity<>(products, HttpStatus.OK);
@@ -89,12 +86,8 @@ public class ProductController {
         productService.deleteProduct(id);
     }
 
-
-    /* GET & POST for product-cart relationship */
     @GetMapping("/carts/{cartId}/products/all")
     public ResponseEntity<List<Product>> getAllProductsByCartId(@PathVariable (value = "cartId") Long cartId) {
-//        Cart cart = cartService.findCartById(cartId);
-
         Cart cart = cartRepository.findById(cartId)
                 .orElseThrow(() -> new CartNotFoundException("Cart with id: " + cartId + " not found!"));
 
@@ -106,7 +99,6 @@ public class ProductController {
 
     @PostMapping("/carts/{cartId}/products/add/{productId}")
     public ResponseEntity<Product> addProductToCart (@PathVariable(value = "cartId") Long cartId, @PathVariable(value="productId") Long productId) {
-
         Product newCartProduct = productService.findProductById(productId);
         Product finalNewCartProduct = newCartProduct;
 
@@ -125,6 +117,7 @@ public class ProductController {
 
         return new ResponseEntity<>(newCartProduct, HttpStatus.CREATED);
     }
+
     @DeleteMapping("/carts/{cartId}/products/delete")
     public ResponseEntity<List<Product>> clearProductsFromCart (@PathVariable (value="cartId") Long cartId) {
         Cart cart = cartRepository.findById(cartId)

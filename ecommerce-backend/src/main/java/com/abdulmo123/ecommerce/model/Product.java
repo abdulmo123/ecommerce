@@ -2,7 +2,6 @@ package com.abdulmo123.ecommerce.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import org.hibernate.annotations.OnDelete;
 
 import java.io.Serializable;
 
@@ -29,11 +28,6 @@ public class Product implements Serializable {
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
-    /*@JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id")
-    private Cart cart;*/
-
     public Product () {}
 
     public Product (String name, String description, double price, String picture, Category category, Cart cart) {
@@ -42,7 +36,6 @@ public class Product implements Serializable {
         this.price = price;
         this.picture = picture;
         this.category = category;
-//        this.cart = cart;
     }
     
     public Long getId() {
@@ -93,15 +86,7 @@ public class Product implements Serializable {
         this.category = category;
     }
 
-    /*public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }*/
-
-    /*@Override
+    @Override
     public String toString() {
         return "Product{" +
                 "id=" + id +
@@ -110,7 +95,6 @@ public class Product implements Serializable {
                 ", price='" + price + '\'' +
                 ", picture='" + picture + '\'' +
                 ", category='" + category + '\'' +
-//                ", cart='" + cart + '\'' +
                 '}';
-    }*/
+    }
 }

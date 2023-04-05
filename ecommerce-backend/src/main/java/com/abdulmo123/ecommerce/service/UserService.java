@@ -1,7 +1,7 @@
 package com.abdulmo123.ecommerce.service;
 
 import com.abdulmo123.ecommerce.repository.UserRepository;
-import jakarta.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 @Service
