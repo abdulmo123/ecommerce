@@ -49,9 +49,7 @@ public class CartController {
     @DeleteMapping("/delete/{id}")
     public void deleteCart(@PathVariable("id") Long id) {
         if (!cartService.findCartById(id).getCartProducts().isEmpty()) {
-            System.out.println(cartService.findCartById(id).getCartProducts());
             cartService.findCartById(id).getCartProducts().clear();
-            System.out.println(cartService.findCartById(id).getCartProducts());
         }
         cartService.deleteCart(id);
     }

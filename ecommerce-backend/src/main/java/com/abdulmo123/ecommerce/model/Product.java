@@ -101,7 +101,7 @@ public class Product implements Serializable {
         this.cart = cart;
     }*/
 
-    @Override
+    /*@Override
     public String toString() {
         return "Product{" +
                 "id=" + id +
@@ -112,5 +112,5 @@ public class Product implements Serializable {
                 ", category='" + category + '\'' +
 //                ", cart='" + cart + '\'' +
                 '}';
-    }
+    }*/
 }

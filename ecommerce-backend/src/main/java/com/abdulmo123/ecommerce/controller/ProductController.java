@@ -124,4 +124,30 @@ public class ProductController {
 
         return new ResponseEntity<>(newCartProduct, HttpStatus.CREATED);
     }
+    @DeleteMapping("/carts/{cartId}/products/delete")
+    public ResponseEntity<List<Product>> clearProductsFromCart (@PathVariable (value="cartId") Long cartId) {
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new CartNotFoundException("Cart with id: " + cartId + " not found!"));
+
+        List<Product> cartProducts = cart.getCartProducts();
+        cartProducts.clear();
+        cart.setCartProducts(cartProducts);
+        cartRepository.save(cart);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/carts/{cartId}/products/delete/{productId}")
+    public ResponseEntity<List<Product>> removeProductByIdFromCart (@PathVariable (value="cartId") Long cartId, @PathVariable(value="productId") Long productId) {
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new CartNotFoundException("Cart with id: " + cartId + " not found!"));
+
+        List<Product> cartProducts = cart.getCartProducts();
+        cartProducts.clear();
+        cart.setCartProducts(cartProducts);
+        cartRepository.save(cart);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }
