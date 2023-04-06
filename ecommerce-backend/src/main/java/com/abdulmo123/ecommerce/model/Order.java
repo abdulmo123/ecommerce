@@ -1,11 +1,16 @@
 package com.abdulmo123.ecommerce.model;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table
+@EntityListeners(AuditingEntityListener.class)
 public class Order {
 
     @Id
@@ -13,6 +18,7 @@ public class Order {
     @Column(nullable = false, updatable = false)
     private Long id;
 
+    @CreatedDate
     private Date createdDate;
     private double totalPrice;
 
