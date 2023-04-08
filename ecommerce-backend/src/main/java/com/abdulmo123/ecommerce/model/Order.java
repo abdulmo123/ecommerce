@@ -4,34 +4,36 @@ import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name="`order`")
 @EntityListeners(AuditingEntityListener.class)
-public class Order {
+public class Order implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
     private Long id;
 
-    @CreatedDate
-    private Date createdDate;
     private double totalPrice;
 
-    @OneToMany
+    @CreatedDate
+    @Column(name="created_at", nullable=false, updatable=false)
+    private Date createdDate;
+
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="order_id")
-    private List<Product> orderProducts = new ArrayList<>();
+    private Cart cart;
 
     public Order () {}
 
-    public Order (Date createdDate, double totalPrice, List<Product> orderProducts) {
-        this.createdDate = createdDate;
+    public Order (double totalPrice, Cart cart) {
         this.totalPrice = totalPrice;
-        this.orderProducts = orderProducts;
+        this.cart = cart;
     }
 
     public Long getId() {
@@ -42,6 +44,14 @@ public class Order {
         this.id = id;
     }
 
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     public Date getCreatedDate() {
         return createdDate;
     }
@@ -50,11 +60,21 @@ public class Order {
         this.createdDate = createdDate;
     }
 
-    public List<Product> getOrderProducts() {
-        return orderProducts;
+    public Cart getCart() {
+        return cart;
     }
 
-    public void setOrderProducts(List<Product> orderProducts) {
-        this.orderProducts = orderProducts;
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", total price='" + totalPrice + '\'' +
+                ", date='" + createdDate + '\'' +
+                ", cart='" + cart + '\'' +
+                '}';
     }
 }
