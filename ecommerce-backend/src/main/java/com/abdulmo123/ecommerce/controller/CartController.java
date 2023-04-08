@@ -35,7 +35,7 @@ public class CartController {
         return new ResponseEntity<>(carts, HttpStatus.OK);
     }
 
-    @GetMapping("/cartsfind/{id}")
+    @GetMapping("/carts/find/{id}")
     public ResponseEntity<Cart> getCartById (@PathVariable("id") Long id) {
         Cart cart = cartService.findCartById(id);
         return new ResponseEntity<>(cart, HttpStatus.OK);
