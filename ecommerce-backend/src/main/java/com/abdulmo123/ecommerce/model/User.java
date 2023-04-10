@@ -2,8 +2,10 @@ package com.abdulmo123.ecommerce.model;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import jakarta.validation.constraints.*;
 
 @Entity
+@Table(name="user", uniqueConstraints = @UniqueConstraint(columnNames="email"))
 public class User implements Serializable {
 
     @Id
@@ -11,18 +13,23 @@ public class User implements Serializable {
     @Column(nullable = false, updatable=false)
     private Long id;
 
+    private String firstName;
+    private String lastName;
+
     @Column(nullable=false, unique=true)
-    private String username;
+    private @NotBlank String username;
 
     @Column(nullable=false)
-    private String password;
+    private @NotBlank String password;
     private String email;
     private String phoneNumber;
     private String address;
 
     public User () {}
 
-    public User (String username, String password, String email, String phoneNumber, String address) {
+    public User (String firstName, String lastName, @NotBlank String username, @NotBlank String password, String email, String phoneNumber, String address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.username = username;
         this.password = password;
         this.email = email;
@@ -36,6 +43,22 @@ public class User implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getUsername() {
@@ -82,6 +105,8 @@ public class User implements Serializable {
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", first name='" + firstName + '\'' +
+                ", last name='" + lastName + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
