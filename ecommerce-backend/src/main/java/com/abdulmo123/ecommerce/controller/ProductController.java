@@ -109,8 +109,8 @@ public class ProductController {
                         return productService.addProduct(finalNewCartProduct);
                     })
                     .orElseThrow(() -> new CartNotFoundException("Cart with id: " + cartId + " not found!"));
-
         }
+
         else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
