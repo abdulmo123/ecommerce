@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <style>
+        .border{
+            margin:50px;
+            padding:25px 35px;
+            border:1px solid #ddd;
+            border-radius:3px;
+        }
+    </style>
+</head>
+<body>
+<div class="border">
+    <h1 style="color: green">Login Success</h1>
+    <table>
+        <tr>
+            <td>First Name</td>
+            <td> : [[${user.firstName}]]</td>
+        </tr>
+        <tr>
+            <td>Last Name</td>
+            <td> : [[${user.lastName}]]</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td> : [[${user.email}]]</td>
+        </tr>
+        <tr>
+            <td>Phone</td>
+            <td> : [[${user.phone}]]</td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td> : [[${user.address}]]</td>
+        </tr>
+    </table>
+    <a th:href="@{logout}" >Logout</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Sign Up Form</title>
+
+    <style>
+        .warning{
+            margin:0px;
+            padding: 0px;
+            margin-top:3px;
+            color:red;
+            font-size:14px;
+            display:block;
+        }
+
+        .signup_form{
+            margin:50px;
+            padding:25px 35px;
+            border:1px solid #ddd;
+            border-radius:3px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="signup_form">
+
+    <h2>Sign Up Form</h2>
+    <form th:action="@{signup}" th:object="${user}" method="post">
+
+        <p class="warning" th:if="${error!=null}" th:text="${error}"></p>
+
+        <table>
+
+            <tr>
+                <td>First Name <span style="color:red">*</span></td>
+                <td> : <input th:field="*{name}" type="text" placeholder="Enter first name"></td>
+                <td> <p class="warning" th:if="${#fields.hasErrors('firstName')}" th:text="${#fields.errors('firstName')[0]}"></p> </td>
+            </tr>
+            <tr>
+                <td>Last Name <span style="color:red">*</span></td>
+                <td> : <input th:field="*{name}" type="text" placeholder="Enter last name"></td>
+                <td> <p class="warning" th:if="${#fields.hasErrors('lastName')}" th:text="${#fields.errors('lastName')[0]}"></p> </td>
+            </tr>
+            <tr>
+                <td>Email <span style="color:red">*</span></td>
+                <td> : <input th:field="*{email}" type="text" placeholder="Enter email address"></td>
+                <td> <p class="warning" th:if="${#fields.hasErrors('email')}" th:text="${#fields.errors('email')[0]}"></p> </td>
+            </tr>
+            <tr>
+                <td>Password <span style="color:red">*</span></td>
+                <td> : <input th:field="*{password}" type="password" placeholder="Enter password"></td>
+                <td> <p class="warning" th:if="${#fields.hasErrors('password')}" th:text="${#fields.errors('password')[0]}"></p> </td>
+            </tr>
+            <tr>
+                <td>Phone <span style="color:red">*</span></td>
+                <td> : <input th:field="*{phone}" type="text" placeholder="Enter phone number"></td>
+                <td> <p class="warning" th:if="${#fields.hasErrors('phone')}" th:text="${#fields.errors('phone')[0]}"></p> </td>
+            </tr>
+            <tr>
+                <td>Address <span style="color:red">*</span></td>
+                <td> : <input th:field="*{address}" type="text" placeholder="Enter address"></td>
+                <td> <p class="warning" th:if="${#fields.hasErrors('address')}" th:text="${#fields.errors('address')[0]}"></p> </td>
+            </tr>
+            <tr>
+                <td> <input type="submit" value="Signup">
+            </tr>
+        </table>
+    </form>
+    Already have an account? <a th:href="@{login}">Login</a>
+</div>
+
+</body>
+</html>

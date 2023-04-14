@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Form</title>
+    <style>
+        .warning{
+            margin:0px;
+            padding: 0px;
+            margin-top:3px;
+            color:red;
+            font-size:14px;
+            display:block;
+        }
+
+        .login_form{
+            margin:50px;
+            padding:25px 35px;
+            border:1px solid #ddd;
+            border-radius:3px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="login_form">
+    <h2>Login Form</h2>
+    <form th:action="@{login}" method="post">
+        <p th:if="${param.error}"  style="padding: 0px 0px 10px 0px; color: #ff4159">
+            Email address or Password is incorrect!
+        </p>
+        <table>
+            <tr>
+                <td>Email</td>
+                <td> : <input name="email" type="email" placeholder="Enter email address"></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td> : <input name="password" type="password" placeholder="Enter user password"></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Login"></td>
+            </tr>
+        </table>
+        Don't have any account? <a th:href="@{signup}">Sign Up</a>
+    </form>
+</div>
+
+</body>
+</html>
