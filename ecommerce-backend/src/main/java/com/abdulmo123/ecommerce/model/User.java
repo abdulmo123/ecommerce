@@ -2,10 +2,9 @@ package com.abdulmo123.ecommerce.model;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
-import jakarta.validation.constraints.*;
 
 @Entity
-@Table(name="user", uniqueConstraints = @UniqueConstraint(columnNames="email"))
+@Table(name="user")
 public class User implements Serializable {
 
     @Id
@@ -17,22 +16,20 @@ public class User implements Serializable {
     private String lastName;
 
     @Column(nullable=false, unique=true)
-    private @NotBlank String username;
+    private String email;
 
     @Column(nullable=false)
-    private @NotBlank String password;
-    private String email;
+    private String password;
     private String phoneNumber;
     private String address;
 
     public User () {}
 
-    public User (String firstName, String lastName, @NotBlank String username, @NotBlank String password, String email, String phoneNumber, String address) {
+    public User (String firstName, String lastName, String email, String password, String phoneNumber, String address) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.username = username;
-        this.password = password;
         this.email = email;
+        this.password = password;
         this.phoneNumber = phoneNumber;
         this.address = address;
     }
@@ -61,12 +58,12 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -75,14 +72,6 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPhoneNumber() {
@@ -107,9 +96,8 @@ public class User implements Serializable {
                 "id=" + id +
                 ", first name='" + firstName + '\'' +
                 ", last name='" + lastName + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", address='" + address + '\'' +
                 '}';
