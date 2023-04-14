@@ -24,9 +24,29 @@ public class OrderHistoryController {
         return new ResponseEntity<>(orderHistory, HttpStatus.OK);
     }
 
+    @GetMapping("/find/{id}")
+    public ResponseEntity<OrderHistory> getOrderHistoryById(@PathVariable("id") Long id) {
+        OrderHistory orderHistory = orderHistoryService.findOrderHistoryById(id);
+        return new ResponseEntity<>(orderHistory, HttpStatus.OK);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<OrderHistory> addOrderHistory(@RequestBody OrderHistory orderHistory) {
         OrderHistory newOrderHistory = orderHistoryService.addOrderHistory(orderHistory);
         return new ResponseEntity<>(newOrderHistory, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/update/{id}")
+    public void updateOrderHistory(@PathVariable("id") Long id, @RequestBody OrderHistory orderHistory) {
+        orderHistoryService.updateOrderHistory(id, orderHistory);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteOrderHistory(@PathVariable("id") Long id) {
+        if (!orderHistoryService.findOrderHistoryById(id).getOrderHistory().isEmpty()) {
+            orderHistoryService.findOrderHistoryById(id).getOrderHistory().clear();
+        }
+
+        orderHistoryService.deleteOrderHistory(id);
     }
 }
