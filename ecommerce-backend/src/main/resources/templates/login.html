@@ -11,7 +11,7 @@
     </div>
 
     <div th:if="${param.error}">
-        <h3>Invalid username or password.</h3>
+        <h3 style="color: red">Invalid username or password.</h3>
     </div>
 
     <div th:if="${param.logout}">
@@ -21,7 +21,7 @@
     <form th:action="@{/login}" method="post">
 
         <div>
-            <label>Email: </label> <input type="text" name="email" id="email">
+            <label>Username: </label> <input type="text" name="username" id="username">
         </div><br/>
 
         <div>
@@ -33,7 +33,7 @@
         </div>
 
     </form>
-    
+
 </div>
 </body>
 </html>
