@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html   xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+</head>
+<body>
+<div>
+    <h2>New user sign up</h2>
+</div>
+
+<form action="#" th:action="@{/signup}" th:object="${user}" method="post">
+    <div
+            th:if="${confirmationMessage}"
+            class="success" role="alert"
+            th:text="${confirmationMessage}"
+    ></div>
+    <div
+            th:if="${alreadySignedUpMessage}"
+            class="failure" role="alert"
+            th:text="${alreadySignedUpMessage}"
+    ></div>
+
+    <div>
+        <input
+                type="text" th:field="*{firstName}"
+                placeholder="First name" class="form-control" required />
+    </div><br/>
+
+    <div>
+        <input
+                type="text" th:field="*{lastName}"
+                placeholder="Last name" class="form-control" required />
+    </div><br/>
+
+    <div>
+        <input
+                type="email" th:field="*{email}"
+                placeholder="Email" class="form-control"
+                data-error="Invalid email address" required />
+    </div><br/>
+
+    <button type="submit">Sign up</button>
+</form>
+
+</body>
+</html>

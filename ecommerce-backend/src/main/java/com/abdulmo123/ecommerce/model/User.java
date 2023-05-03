@@ -1,5 +1,6 @@
 package com.abdulmo123.ecommerce.model;
 
+import org.springframework.data.annotation.Transient;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;

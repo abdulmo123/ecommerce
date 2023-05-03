@@ -22,7 +22,7 @@ import java.util.UUID;
 public class SignupController {
 
     @Autowired
-    private BCryptPasswordEncoder bcryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     private UserService userService;
@@ -59,7 +59,7 @@ public class SignupController {
 
         }
         else {
-            user.setEnabled(true);
+            user.setEnabled(false);
             user.setConfirmationToken(UUID.randomUUID().toString());
 
             userService.saveUser(user);
@@ -72,7 +72,7 @@ public class SignupController {
             emailService.sendEmail(user.getEmail(), "Please set a password", message);
 
             modelAndView.addObject("confirmationMessage",
-                    "A password set email has been sent to " + user.getEmail());
+                    "An email to set password has been sent to " + user.getEmail());
 
             modelAndView.setViewName("signup");
         }
@@ -102,7 +102,7 @@ public class SignupController {
 
         User user = userService.findByConfirmationToken(requestParams.get("token"));
 
-        user.setPassword(bcryptPasswordEncoder.encode(requestParams.get("password")));
+        user.setPassword(bCryptPasswordEncoder.encode(requestParams.get("password")));
         user.setEnabled(true);
 
         userService.saveUser(user);
