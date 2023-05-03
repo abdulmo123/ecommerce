@@ -47,9 +47,7 @@ public class SecurityConfig {
                 .and()
                 .formLogin()
                     .loginPage("/login")
-                    .permitAll()
-                .and()
-                .logout().permitAll();
+                    .permitAll();
 
         return http.build();
     }
