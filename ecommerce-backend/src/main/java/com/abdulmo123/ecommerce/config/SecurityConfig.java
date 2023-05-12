@@ -10,6 +10,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -37,13 +40,28 @@ public class SecurityConfig {
         return auth.authenticationProvider(authenticationProvider());
     }
 
+    /*protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
+    }*/
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http
+                .cors()
+                    .configurationSource(request -> {
+                        CorsConfiguration config = new CorsConfiguration();
+                        config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+                        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+                        config.setAllowedHeaders(Arrays.asList("*"));
+                        return config;
+                    })
+                .and()
+                .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/signup").permitAll()
-                .requestMatchers("/confirm").permitAll()
-                .anyRequest().authenticated()
+                    .requestMatchers("/signup").permitAll()
+                    .requestMatchers("/confirm").permitAll()
+                    .anyRequest().authenticated()
                 .and()
                 .formLogin()
                     .loginPage("/login")
