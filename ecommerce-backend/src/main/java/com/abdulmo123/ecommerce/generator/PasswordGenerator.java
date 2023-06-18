@@ -1,3 +1,4 @@
+/*
 package com.abdulmo123.ecommerce.generator;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,3 +14,4 @@ public class PasswordGenerator {
         System.out.println("User password: " + encodedUserPassword);
     }
 }
+*/

@@ -27,16 +27,16 @@ export class LoginComponent implements OnInit {
 
   handleLogin() {
     this.auth.login(this.user).subscribe(
-      (response: any) => {
+      () => {
         console.log('success!');
-        console.log(this.user.email,":",this.user.password);
-        this.router.navigate(['/home'])
+        console.log(this.user.email, ":", this.user.password);
+        this.router.navigate(['/home']);
       },
       (error: any) => {
         console.log('error');
         console.error(error);
-        console.log(this.user.email,":",this.user.password);
+        console.log(this.user.email, ":", this.user.password);
       }
-    )
+    );
   }
 }

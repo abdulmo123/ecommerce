@@ -4,6 +4,7 @@ import com.abdulmo123.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -40,27 +41,26 @@ public class SecurityConfig {
         return auth.authenticationProvider(authenticationProvider());
     }
 
-    /*protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
-    }*/
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-                .cors()
-                    .configurationSource(request -> {
-                        CorsConfiguration config = new CorsConfiguration();
-                        config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
-                        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-                        config.setAllowedHeaders(Arrays.asList("*"));
-                        return config;
-                    })
-                .and()
                 .csrf().disable()
+                .cors()
+                .configurationSource(request -> {
+                    CorsConfiguration config = new CorsConfiguration();
+                    config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+                    config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+                    config.setAllowedHeaders(Arrays.asList("*"));
+                    return config;
+                })
+                .and()
                 .authorizeHttpRequests()
-                    .requestMatchers("/signup").permitAll()
-                    .requestMatchers("/confirm").permitAll()
+                    .requestMatchers("/login").permitAll()
                     .anyRequest().authenticated()
                 .and()
                 .formLogin()
