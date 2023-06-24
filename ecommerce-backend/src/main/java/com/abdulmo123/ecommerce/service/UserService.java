@@ -40,4 +40,9 @@ public class UserService implements UserDetailsService {
 
         return new CurrentUserDetails(user);
     }
+
+    public boolean isValidUser(String username, String password) {
+        User user = userRepository.findByEmail(username);
+        return user != null && user.getPassword().equals(password);
+    }
 }

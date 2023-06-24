@@ -1,42 +1,42 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Set Password Page</title>
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Set Password Page</title>-->
 
-</head>
-<body>
+<!--</head>-->
+<!--<body>-->
 
-<div>
-    <div>
-        <h2>Set your password</h2>
+<!--<div>-->
+<!--    <div>-->
+<!--        <h2>Set your password</h2>-->
 
-        <div style="font-style: italic; color: green; padding-bottom: 8px;"
-             th:if="${successMessage}" class="success"
-             role="alert" th:text="${successMessage}"></div>
+<!--        <div style="font-style: italic; color: green; padding-bottom: 8px;"-->
+<!--             th:if="${successMessage}" class="success"-->
+<!--             role="alert" th:text="${successMessage}"></div>-->
 
-        <div style="font-style: italic; color: red; padding-bottom: 8px;"
-             th:if="${errorMessage}" class="failure"
-             role="alert" th:text="${errorMessage}"></div>
+<!--        <div style="font-style: italic; color: red; padding-bottom: 8px;"-->
+<!--             th:if="${errorMessage}" class="failure"-->
+<!--             role="alert" th:text="${errorMessage}"></div>-->
 
-        <div style="font-style: italic; color: red; padding-bottom: 8px;"
-             th:if="${invalidToken}" class="failure"
-             role="alert" th:text="${invalidToken}"></div>
+<!--        <div style="font-style: italic; color: red; padding-bottom: 8px;"-->
+<!--             th:if="${invalidToken}" class="failure"-->
+<!--             role="alert" th:text="${invalidToken}"></div>-->
 
-        <form th:if="!${invalidToken}" class="m-t" id="passwordForm" role="form" action="#"
-        th:object="${setPassword}" th:action="@{confirm}" method="post">
+<!--        <form th:if="!${invalidToken}" class="m-t" id="passwordForm" role="form" action="#"-->
+<!--        th:object="${setPassword}" th:action="@{confirm}" method="post">-->
 
-            <input type="hidden" name="token" th:value="${confirmationToken}"/>
+<!--            <input type="hidden" name="token" th:value="${confirmationToken}"/>-->
 
-            <div>
-                <input name="password" type="password" id="password"
-                placeholder="Password" class="form-control" required />
-            </div><br/>
+<!--            <div>-->
+<!--                <input name="password" type="password" id="password"-->
+<!--                placeholder="Password" class="form-control" required />-->
+<!--            </div><br/>-->
 
-            <button type="submit">Save</button>
+<!--            <button type="submit">Save</button>-->
 
-        </form>
-    </div>
-</div>
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
 
-</body>
-</html>
+<!--</body>-->
+<!--</html>-->

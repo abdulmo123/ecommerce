@@ -41,13 +41,19 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests()
-                .requestMatchers("/signup").permitAll()
-                .requestMatchers("/confirm").permitAll()
-                .anyRequest().authenticated()
-                .and()
+//                    .requestMatchers("/login").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
                 .formLogin()
                     .loginPage("/login")
+                    .defaultSuccessUrl("/home", true)
+                    .permitAll()
+                    .and()
+                .logout()
+                    .logoutSuccessUrl("/login")
                     .permitAll();
+
+        http.csrf().disable();
 
         return http.build();
     }

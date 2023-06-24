@@ -18,21 +18,26 @@
         <h3>You have been logged out. </h3>
     </div>
 
-    <form th:action="@{/login}" method="post">
+<!--    <form action="/login" method="post">-->
+<!--        &lt;!&ndash; Login form fields &ndash;&gt;-->
+<!--        <button type="submit">Login</button>-->
+<!--    </form>-->
+
+    <form action="/login" method="post">
 
         <div>
-            <label>Username: </label> <input type="text" name="username" id="username">
+            <label>Username: </label> <input type="text" name="username" id="username" placeholder="Username" required>
         </div><br/>
 
         <div>
-            <label>Password: </label> <input type="password" name="password" id="password">
+            <label>Password: </label> <input type="password" name="password" id="password" placeholder="Password" required>
         </div><br/>
 
         <div>
-            <input type="submit" value="Login" />
+            <button type="submit">Login</button>
         </div>
-
-        <p>New user? <a th:href="@{/signup}">Sign up here</a></p>
+        <p th:text="${error}"></p> <!-- Display error message -->
+<!--        <p>New user? <a th:href="@{/signup}">Sign up here</a></p>-->
 
     </form>
 
