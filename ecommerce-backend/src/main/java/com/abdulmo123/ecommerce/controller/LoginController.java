@@ -3,16 +3,12 @@ package com.abdulmo123.ecommerce.controller;
 import com.abdulmo123.ecommerce.model.User;
 import com.abdulmo123.ecommerce.service.UserService;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Objects;
 
 @Controller
 public class LoginController {
