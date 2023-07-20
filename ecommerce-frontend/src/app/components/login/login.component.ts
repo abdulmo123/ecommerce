@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/service/auth.service';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-login',
@@ -26,17 +27,18 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {} ;
 
   handleLogin() {
-    this.auth.login(this.user).subscribe(
-      (response: any) => {
-        console.log('success!');
-        console.log(this.user.email,":",this.user.password);
-        this.router.navigate(['/home'])
+    this.auth.login(this.user)
+    .subscribe(
+      (response) => {
+        console.log('Login successful:', response);
+        this.router.navigateByUrl('[/home]')
+        // Handle successful login (e.g., redirect to home page)
       },
-      (error: any) => {
-        console.log('error');
-        console.error(error);
-        console.log(this.user.email,":",this.user.password);
+      (error) => {
+        console.error('Login failed:', error);
+        // Handle login failure (e.g., show error message)
       }
-    )
+    );;
   }
+  
 }

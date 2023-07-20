@@ -3,6 +3,10 @@ package com.abdulmo123.ecommerce.controller;
 import com.abdulmo123.ecommerce.model.User;
 import com.abdulmo123.ecommerce.service.UserService;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,13 +14,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:4200")
-@Controller
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
+@RequestMapping
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class LoginController {
 
     private UserService userService;
+    private BCryptPasswordEncoder passwordEncoder;
 
-    public LoginController(UserService userService) {
+    public LoginController(UserService userService, BCryptPasswordEncoder passwordEncoder) {
         this.userService = userService;
     }
 
@@ -26,13 +35,44 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody @NotNull User user, Model model) {
-        if (userService.isValidUser(user.getEmail(), user.getPassword())) {
-            model.addAttribute("username", user.getEmail());
-            return "redirect:/home"; // Redirect to the home page
+    public ResponseEntity<String> login(@RequestBody @NotNull User user) {
+        String email = user.getEmail();
+        String password = user.getPassword();
+
+        if (userService.isValidUser(email, password)) {
+            return ResponseEntity.ok("{\"message\": \"Login successful\", \"redirect\": \"/home\"}");
         } else {
-            model.addAttribute("error", "Invalid username or password. Please try again!");
-            return "login"; // Return to the login page with an error message
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
     }
+    /*@PostMapping("/login")
+    public ResponseEntity<String> login(@RequestParam String email, @RequestParam String password) {
+        if (userService.isValidUser(email, password)) {
+            return ResponseEntity.ok("{\"message\": \"Login successful\", \"redirect\": \"/home\"}");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+        }
+    }*/
+
+    /*@RequestMapping(value = "/login", method = RequestMethod.POST, consumes="application/json")
+    public ResponseEntity<Object> login(@RequestBody @NotNull User user) {
+        *//*User u = userService.findByEmail(user.getEmail());
+
+        if (u.getPassword().equals(user.getPassword())) {
+
+        }*//*
+        String email = user.getEmail();
+        String password = user.getPassword();
+
+        if (userService.isValidUser(email, password)) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Login successful");
+            response.put("redirect", "/home");
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+        }
+    }*/
+
+
 }
