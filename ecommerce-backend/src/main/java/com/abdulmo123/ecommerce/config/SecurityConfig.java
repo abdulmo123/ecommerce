@@ -7,13 +7,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
-import java.security.cert.CertPathBuilder;
 import java.util.Arrays;
 
 @Configuration
@@ -42,13 +43,8 @@ public class SecurityConfig {
         return auth.authenticationProvider(authenticationProvider());
     }
 
-    /*protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
-    }*/
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         http
                 .cors()
                     .configurationSource(request -> {
@@ -59,19 +55,12 @@ public class SecurityConfig {
                         return config;
                     })
                 .and()
-                .authorizeHttpRequests()
+                .csrf().disable()
+                 .authorizeHttpRequests()
                     .anyRequest().authenticated()
                     .and()
-                .formLogin()
-                    .loginPage("/login")
-                    .defaultSuccessUrl("/home", true)
-                    .permitAll()
-                    .and()
-                .logout()
-                    .logoutSuccessUrl("/login")
-                    .permitAll();
+                .httpBasic();
 
-        http.csrf().disable();
 
         return http.build();
     }

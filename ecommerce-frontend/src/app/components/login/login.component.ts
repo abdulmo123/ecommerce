@@ -27,18 +27,17 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {} ;
 
   handleLogin() {
-    this.auth.login(this.user)
-    .subscribe(
-      (response) => {
-        console.log('Login successful:', response);
-        this.router.navigateByUrl('[/home]')
-        // Handle successful login (e.g., redirect to home page)
+    this.auth.login(this.user).subscribe(
+      (response: any) => {
+        console.log('success!');
+        console.log(this.user.email,":",this.user.password);
+        this.router.navigate(['/home'])
       },
-      (error) => {
-        console.error('Login failed:', error);
-        // Handle login failure (e.g., show error message)
+      (error: any) => {
+        console.log('error');
+        console.error(error);
+        console.log(this.user.email,":",this.user.password);
       }
-    );;
+    )
   }
-  
 }
