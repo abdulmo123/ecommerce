@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/service/auth.service';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-login',
