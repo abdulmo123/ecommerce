@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Product } from 'src/app/model/product.model';
 import { ProductService } from '../../service/product.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { keyframes } from '@angular/animations';
 
 @Component({
   selector: 'app-home',
@@ -43,11 +44,17 @@ export class HomeComponent {
     )
   }
 
-  // filterProductsByCategory(categoryId: number): void {
-  //   // console.log('cliekd!');
-  //   if (this.products) {
-  //     console.log(this.products);
-  //     this.productByCatArr = this.products.filter(product => product.category && product.category.id === categoryId);
-  //   }
-  // }
+  public searchProducts(key: string) : void {
+    const results: Product[] = [];
+    for (const product of this.products) {
+      if (product.name.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+        results?.push(product);
+      }
+    }
+
+    this.products = results;
+    if (results.length === 0 || !key) {
+      this.getAllProducts();
+    }
+  }
 }
