@@ -9,15 +9,19 @@ import { Observable } from 'rxjs';
 })
 export class ProductService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   private apiServerUrl = environment.hostUrl;
 
   public getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.apiServerUrl}/api/products/all`);
+    return this.httpClient.get<Product[]>(`${this.apiServerUrl}/api/products/all`);
   }
 
   public getAllProductsByCategoryId(categoryId: number): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.apiServerUrl}/api/categories/${categoryId}/products/all`);
+    return this.httpClient.get<Product[]>(`${this.apiServerUrl}/api/categories/${categoryId}/products/all`);
   }
+
+  // public addProductToCart(cartId: number, productId: number): Observable<Product> {
+  //   return this.httpClient.post<Product>(`${this.apiServerUrl}/api/cart/${cartId}/products/add/${productId}`, {cartId, productId});
+  // }
 }

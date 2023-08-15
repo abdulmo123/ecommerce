@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home']);
       },
       (error: any) => {
+        alert('Invalid username and/or password');
         console.log('error');
         console.error(error);
         console.log(this.user.email, ":", this.user.password);

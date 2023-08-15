@@ -2,10 +2,13 @@ package com.abdulmo123.ecommerce.controller;
 
 import com.abdulmo123.ecommerce.exception.OrderNotFoundException;
 import com.abdulmo123.ecommerce.model.Cart;
+import com.abdulmo123.ecommerce.model.Product;
 import com.abdulmo123.ecommerce.repository.CartRepository;
 import com.abdulmo123.ecommerce.repository.OrderRepository;
 import com.abdulmo123.ecommerce.service.CartService;
 import com.abdulmo123.ecommerce.service.OrderService;
+import com.abdulmo123.ecommerce.service.ProductService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +22,23 @@ public class CartController {
 
     @Autowired
     private CartRepository cartRepository;
+    @Autowired
     private final CartService cartService;
+
+    private HttpSession httpSession;
+
+    @Autowired
+    private final ProductService productService;
+
+    private static final String CART_ID_ATTRIBUTE = "cartId";
 
     @Autowired
     private OrderRepository orderRepository;
     private OrderService orderService;
 
-    public CartController(CartService cartService) {
+    public CartController(CartService cartService, ProductService productService) {
         this.cartService = cartService;
+        this.productService = productService;
     }
 
     @GetMapping("/carts/all")
@@ -40,6 +52,12 @@ public class CartController {
         Cart cart = cartService.findCartById(id);
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
+
+    /*@PostMapping("/carts/add")
+    public ResponseEntity<Cart> addCart() {
+        Cart newCart = cartService.createCart();
+        return new ResponseEntity<>(newCart, HttpStatus.CREATED);
+    }*/
 
     @PostMapping("/carts/add")
     public ResponseEntity<Cart> addCart(@RequestBody Cart cart) {
@@ -78,5 +96,11 @@ public class CartController {
         }
 
         return new ResponseEntity<>(newCartToOrder,HttpStatus.CREATED);
+    }
+
+    @PostMapping("/carts/{cartId}/products/add/{productId}")
+    public ResponseEntity<Cart> addProductToCart (@PathVariable(value="cartId") Long cartId, @PathVariable(value="productId") Long productId) {
+        Cart cart = cartService.addProductToCart(cartId, productId);
+        return new ResponseEntity<>(cart, HttpStatus.OK);
     }
 }
