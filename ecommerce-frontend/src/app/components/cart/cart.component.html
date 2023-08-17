@@ -80,8 +80,9 @@
                         </div>
                     </td>
                     <td class="text-center text-lg text-medium">{{cartProduct?.price}}</td>
-                    <td class="text-center"><a class="remove-from-cart" data-toggle="tooltip" title=""
-                            data-original-title="Remove item"><i class="fa fa-trash"></i></a></td>
+                    <td class="text-center"><a (click)="onProductRemoveFromCart(cartProduct.id)"
+                            class="remove-from-cart" data-toggle="tooltip" title="" data-original-title="Remove item"><i
+                                class="fa fa-trash"></i></a></td>
                 </tr>
             </tbody>
         </table>

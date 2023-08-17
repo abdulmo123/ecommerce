@@ -43,13 +43,28 @@ export class CartComponent {
     return sum;
   }
 
-  public clearCart() {
+  public clearCart() : void {
     var newInt = localStorage.getItem('cartId');
     this.currentCartId = +newInt!;
     this.cartService.clearProductsFromCart(this.currentCartId!).subscribe(
       () => {
         console.log("cart cleared!");
         this.getAllCarts();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    )
+  }
+
+  public onProductRemoveFromCart(productId: number): void {
+    var tempCartId = localStorage.getItem('cartId')
+    this.currentCartId = +tempCartId!;
+
+    this.cartService.removeProductByIdFromCart(this.currentCartId!, productId).subscribe(
+      () => {
+          console.log("product with id: ", productId, " removed from cart!");
+          this.getAllCarts();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
