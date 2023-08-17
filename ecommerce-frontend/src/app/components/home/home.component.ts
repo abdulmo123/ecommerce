@@ -4,6 +4,7 @@ import { ProductService } from '../../service/product.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Cart } from 'src/app/model/cart.model';
 import { CartService } from 'src/app/service/cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,7 @@ export class HomeComponent {
   private currentCartId: number | undefined;
   
 
-  constructor (private productService: ProductService, private cartService: CartService) {}
+  constructor (private productService: ProductService, private cartService: CartService, private router: Router) {}
   ngOnInit() {
     this.getAllProducts();
     this.getAllCarts();
@@ -143,5 +144,9 @@ export class HomeComponent {
     console.log("cart array: ===> " + this.carts.length);
     // console.log("products in cart:" + this.cart?.cartProducts?.length);
     this.getAllCarts();
+  }
+
+  goToCart() {
+    this.router.navigate(['/cart'])
   }
 }

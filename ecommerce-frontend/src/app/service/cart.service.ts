@@ -31,6 +31,10 @@ export class CartService {
     return this.httpClient.post<Cart>(`${this.apiServerUrl}/api/carts/add`, {});
   }
 
+  public clearProductsFromCart(cartId: number): Observable<Cart> {
+    return this.httpClient.delete<Cart>(`${this.apiServerUrl}/api/carts/${cartId}/products/delete`, {});
+  }
+
   // public getCartById(cartId: number) : Observable<Cart> {
   //   return this.httpClient.get(`${this.apiServerUrl}/api/carts/find/${cartId}, );
   // }

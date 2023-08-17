@@ -21,7 +21,7 @@
                     <ul class="nav justify-content-end">
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" (click)="goToCart()" style="cursor: pointer">
                                 <i *ngFor="let cart of cart?.cartProducts" class="fa fa-shopping-cart"></i> Cart
                                 ({{cart?.cartProducts?.length}})
                             </a>
