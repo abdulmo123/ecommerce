@@ -78,7 +78,7 @@ public class CartController {
         cartService.deleteCart(id);
     }
 
-    @PostMapping("/orders/{orderId}/carts/add/{cartId}")
+    /*@PostMapping("/orders/{orderId}/carts/add/{cartId}")
     public ResponseEntity<Cart> addCartToOrder(@PathVariable(value="orderId") Long orderId, @PathVariable(value="cartId") Long cartId) {
         Cart newCartToOrder = cartService.findCartById(cartId);
         Cart finalNewCartToOrder = newCartToOrder;
@@ -96,7 +96,7 @@ public class CartController {
         }
 
         return new ResponseEntity<>(newCartToOrder,HttpStatus.CREATED);
-    }
+    }*/
 
     @PostMapping("/carts/{cartId}/products/add/{productId}")
     public ResponseEntity<Cart> addProductToCart (@PathVariable(value="cartId") Long cartId, @PathVariable(value="productId") Long productId) {

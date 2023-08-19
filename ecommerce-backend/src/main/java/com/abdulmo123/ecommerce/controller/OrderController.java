@@ -1,5 +1,6 @@
 package com.abdulmo123.ecommerce.controller;
 
+import com.abdulmo123.ecommerce.model.Cart;
 import com.abdulmo123.ecommerce.model.Order;
 import com.abdulmo123.ecommerce.repository.OrderRepository;
 import com.abdulmo123.ecommerce.service.OrderService;
@@ -50,5 +51,9 @@ public class OrderController {
         orderService.deleteOrder(id);
     }
 
-
+    @PostMapping("/carts/{cartId}/products/add/{productId}")
+    public ResponseEntity<Order> addProductToCart (@PathVariable(value="orderId") Long orderId, @PathVariable(value="cartId") Long cartId) {
+        Order order = orderService.addCartToOrder(orderId, cartId);
+        return new ResponseEntity<>(order, HttpStatus.OK);
+    }
 }

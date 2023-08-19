@@ -1,13 +1,19 @@
 package com.abdulmo123.ecommerce.service;
 
+import com.abdulmo123.ecommerce.exception.CartNotFoundException;
 import com.abdulmo123.ecommerce.exception.OrderNotFoundException;
+import com.abdulmo123.ecommerce.exception.ProductNotFoundException;
+import com.abdulmo123.ecommerce.model.Cart;
 import com.abdulmo123.ecommerce.model.Order;
+import com.abdulmo123.ecommerce.model.Product;
+import com.abdulmo123.ecommerce.repository.CartRepository;
 import com.abdulmo123.ecommerce.repository.OrderRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -15,6 +21,9 @@ public class OrderService {
 
     @Autowired
     private final OrderRepository orderRepository;
+
+    @Autowired
+    private CartRepository cartRepository;
 
     public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
@@ -41,5 +50,26 @@ public class OrderService {
 
     public void deleteOrder(Long id) {
         orderRepository.deleteOrderById(id);
+    }
+
+    public Order addCartToOrder(Long orderId, Long cartId) {
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        if (optionalOrder.isPresent()) {
+            Order order = optionalOrder.get();
+
+            Optional<Cart> optionalCart = cartRepository.findById(cartId);
+            if (optionalCart.isPresent()) {
+                Cart cart = optionalCart.get();
+                order.setCart(cart);
+
+                return orderRepository.save(order);
+            }
+            else {
+                throw new CartNotFoundException("Cart with id: " + cartId + " not found!");
+            }
+        }
+        else {
+            throw new OrderNotFoundException("Order with id: " + orderId + " not found!");
+        }
     }
 }

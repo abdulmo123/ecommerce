@@ -52,11 +52,11 @@ public class CartService {
         cartRepository.deleteCartById(id);
     }
 
-    public Long createCart() {
+/*    public Long createCart() {
         Cart newCart = new Cart();
         Cart savedCart = cartRepository.save(newCart);
         return savedCart.getId();
-    }
+    }*/
 
     public Cart addProductToCart(Long cartId, Long productId) {
         Optional<Cart> optionalCart = cartRepository.findById(cartId);
