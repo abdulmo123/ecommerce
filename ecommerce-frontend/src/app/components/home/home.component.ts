@@ -149,4 +149,9 @@ export class HomeComponent {
   goToCart() {
     this.router.navigate(['/cart'])
   }
+
+  cartSize() {
+    console.log("cart size: ", this.cart?.cartProducts.length)
+    return this.cart?.cartProducts.length;
+  }
 }

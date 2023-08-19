@@ -22,8 +22,8 @@
 
                         <li class="nav-item">
                             <a class="nav-link" (click)="goToCart()" style="cursor: pointer">
-                                <i *ngFor="let cart of cart?.cartProducts" class="fa fa-shopping-cart"></i> Cart
-                                ({{cart?.cartProducts?.length}})
+                                <i class="fa fa-shopping-cart"></i> Cart
+                                ({{cartSize()}})
                             </a>
                         </li>
                         <li class="nav-item">

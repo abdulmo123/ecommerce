@@ -118,6 +118,11 @@ select.form-control {
     text-decoration: none
 }
 
+.shopping-cart .remove-from-cart:hover {
+    transform: scale(1.25);
+    transition: all .4s ease;
+}
+
 .shopping-cart .count-input,
 .wishlist-table .count-input,
 .order-table .count-input {

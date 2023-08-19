@@ -70,7 +70,8 @@
                     </td>
                     <td class="text-center">
                         <div class="count-input">
-                            <select class="form-control">
+                            <select class="form-control" [(ngModel)]="selectedQuantity[cartProduct.id]"
+                                (ngModelChange)="updateTotalPrice()">
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -79,7 +80,8 @@
                             </select>
                         </div>
                     </td>
-                    <td class="text-center text-lg text-medium">{{cartProduct?.price}}</td>
+                    <td class="text-center text-lg text-medium">{{ cartProduct?.price! *
+                        selectedQuantity[cartProduct.id] }}</td>
                     <td class="text-center"><a (click)="onProductRemoveFromCart(cartProduct.id)"
                             class="remove-from-cart" data-toggle="tooltip" title="" data-original-title="Remove item"><i
                                 class="fa fa-trash"></i></a></td>
@@ -102,7 +104,8 @@
                 Shopping</a></div>
         <div class="column"><a class="btn btn-primary" data-toast="" data-toast-type="success"
                 data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Your cart"
-                data-toast-message="is updated successfully!">Update Cart</a><a class="btn btn-success">Checkout</a>
+                data-toast-message="is updated successfully!">Update Cart</a><a class="btn btn-success"
+                (click)="goToOrder()">Checkout</a>
         </div>
     </div>
 </div>

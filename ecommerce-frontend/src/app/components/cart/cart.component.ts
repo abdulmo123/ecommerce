@@ -12,10 +12,14 @@ import { CartService } from 'src/app/service/cart.service';
 export class CartComponent {
   carts: Cart[] = [];
   private currentCartId: number | undefined;
+  selectedQuantity: { [productId: number] : number } = {};
+  totalPrice: number = 0;
+
   constructor(public cartService: CartService, private router: Router) {}
   
   ngOnInit() {
     this.getAllCarts();
+    // this.totalPrice = 0;
   }
   
   public getAllCarts(): void {
@@ -34,13 +38,8 @@ export class CartComponent {
     this.router.navigate(['/home'])
   }
 
-  getSubtotal() {
-    let sum = 0;
-    for (let i = 0; i < this.carts[0].cartProducts?.length; i++) {
-        sum = sum + this.carts[0].cartProducts[i].price;
-    }
-
-    return sum;
+  goToOrder() {
+    this.router.navigate(['/order'])
   }
 
   public clearCart() : void {
@@ -70,5 +69,32 @@ export class CartComponent {
         alert(error.message);
       }
     )
+  }
+
+  getSubtotal() {
+    let sum = 0;
+    // for (let i = 0; i < this.carts[0].cartProducts?.length; i++) {
+    //     sum = sum + this.carts[0].cartProducts[i].price;
+    // }
+
+    sum = this.updateTotalPrice();
+
+    return sum.toFixed(2);
+  }
+  
+  updateTotalPrice() : number {
+    let sum = 0;
+    for (const productId in this.selectedQuantity) {
+      if (this.selectedQuantity.hasOwnProperty(productId)) {
+        const product = this.carts[0].cartProducts.find(p => p.id === +productId);
+        const quantity =this.selectedQuantity[productId];
+        if (product) {
+          sum += (product.price * quantity);
+        }
+      }
+    }
+
+    this.totalPrice = sum;
+    return Number(this.totalPrice.toFixed(2));
   }
 }
