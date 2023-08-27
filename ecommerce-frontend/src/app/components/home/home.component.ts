@@ -99,9 +99,6 @@ export class HomeComponent {
       // create a new cart
       this.cartService.createCart().subscribe(
         (newCart: Cart) => {
-          // set the new cart to the cart 
-          this.cartService.setCartId(JSON.stringify(this.cart?.id));
-          console.log(this.cartService.getCartId());
           this.cart = newCart;
           localStorage.setItem('cartId', JSON.stringify(this.cart.id!))
           console.log("new cart created!" + newCart);

@@ -148,39 +148,16 @@
                                                     <label class="card-radio-label mb-0">
                                                         <input type="radio" name="address" id="info-address1"
                                                             class="card-radio-input" checked="">
-                                                        <div class="card-radio text-truncate p-3">
+                                                        <div *ngFor="let user of users"
+                                                            class="card-radio text-truncate p-3">
                                                             <span class="fs-14 mb-4 d-block">Address 1</span>
-                                                            <span class="fs-14 mb-2 d-block">Bradley McMillian</span>
+                                                            <span class="fs-14 mb-2 d-block">{{user.firstName}}
+                                                                {{user.lastName}}</span>
                                                             <span
-                                                                class="text-muted fw-normal text-wrap mb-1 d-block">109
-                                                                Clarksburg Park Road Show Low, AZ 85901</span>
+                                                                class="text-muted fw-normal text-wrap mb-1 d-block">{{user.address}}</span>
 
                                                             <span class="text-muted fw-normal d-block">Mo.
-                                                                012-345-6789</span>
-                                                        </div>
-                                                    </label>
-                                                    <div class="edit-btn bg-light  rounded">
-                                                        <a href="#" data-bs-toggle="tooltip" data-placement="top"
-                                                            title="" data-bs-original-title="Edit">
-                                                            <i class="bx bx-pencil font-size-16"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-4 col-sm-6">
-                                                <div>
-                                                    <label class="card-radio-label mb-0">
-                                                        <input type="radio" name="address" id="info-address2"
-                                                            class="card-radio-input">
-                                                        <div class="card-radio text-truncate p-3">
-                                                            <span class="fs-14 mb-4 d-block">Address 2</span>
-                                                            <span class="fs-14 mb-2 d-block">Bradley McMillian</span>
-                                                            <span
-                                                                class="text-muted fw-normal text-wrap mb-1 d-block">109
-                                                                Clarksburg Park Road Show Low, AZ 85901</span>
-                                                            <span class="text-muted fw-normal d-block">Mo.
-                                                                012-345-6789</span>
+                                                                {{user.phoneNumber}}</span>
                                                         </div>
                                                     </label>
                                                     <div class="edit-btn bg-light  rounded">
@@ -278,13 +255,14 @@
                 </div> <!-- end col -->
             </div> <!-- end row-->
         </div>
-        <div class="col-xl-4">
+        <div *ngFor="let order of orders" class="col-xl-4">
             <div class="card checkout-order-summary">
                 <div class="card-body">
                     <div class="p-3 bg-light mb-3">
-                        <h5 class="font-size-16 mb-0">Order Summary <span class="float-end ms-2">#MN0124</span></h5>
+                        <h5 class="font-size-16 mb-0">Order Summary <span class="float-end ms-2">{{order.name}}</span>
+                        </h5>
                     </div>
-                    <div class="table-responsive">
+                    <div *ngFor="let cart of carts; index as i" class="table-responsive">
                         <table class="table table-centered mb-0 table-nowrap">
                             <thead>
                                 <tr>
@@ -294,12 +272,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row"><img src="https://www.bootdey.com/image/280x280/FF00FF/000000"
-                                            alt="product-img" title="product-img" class="avatar-lg rounded"></th>
+                                <tr *ngFor="let cartProduct of cart.cartProducts">
+                                    <th scope="row">
+                                        <a class="product-thumb" href="#"><img src="{{cartProduct?.picture}}"
+                                                alt="Product" class="img-fluid"></a>
+                                    </th>
                                     <td>
-                                        <h5 class="font-size-16 text-truncate"><a href="#" class="text-dark">Waterproof
-                                                Mobile Phone</a></h5>
+                                        <h5 class="font-size-16 text-truncate"><a href="#"
+                                                class="text-dark">{{cartProduct?.name}}</a></h5>
                                         <p class="text-muted mb-0">
                                             <i class="bx bxs-star text-warning"></i>
                                             <i class="bx bxs-star text-warning"></i>
@@ -307,32 +287,17 @@
                                             <i class="bx bxs-star text-warning"></i>
                                             <i class="bx bxs-star-half text-warning"></i>
                                         </p>
-                                        <p class="text-muted mb-0 mt-1">$ 260 x 2</p>
+                                        <p class="text-muted mb-0 mt-1">${{cartProduct?.price}} x
+                                            2</p>
                                     </td>
-                                    <td>$ 520</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><img src="https://www.bootdey.com/image/280x280/FF00FF/000000"
-                                            alt="product-img" title="product-img" class="avatar-lg rounded"></th>
-                                    <td>
-                                        <h5 class="font-size-16 text-truncate"><a href="#" class="text-dark">Smartphone
-                                                Dual Camera</a></h5>
-                                        <p class="text-muted mb-0">
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                        </p>
-                                        <p class="text-muted mb-0 mt-1">$ 260 x 1</p>
-                                    </td>
-                                    <td>$ 260</td>
+                                    <td>{{cartProduct?.price}}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
                                         <h5 class="font-size-14 m-0">Sub Total :</h5>
                                     </td>
                                     <td>
-                                        $ 780
+                                        {{cart.currentPrice!}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -340,7 +305,7 @@
                                         <h5 class="font-size-14 m-0">Shipping Charge :</h5>
                                     </td>
                                     <td>
-                                        $ 25
+                                        $25
                                     </td>
                                 </tr>
                                 <tr>

@@ -9,8 +9,6 @@ import { Observable } from 'rxjs';
 })
 export class CartService {
 
-  private cartIdKey = 'cartId';
-
   constructor(private httpClient: HttpClient) { }
 
   private apiServerUrl = environment.hostUrl;
@@ -37,17 +35,5 @@ export class CartService {
 
   public removeProductByIdFromCart(cartId: number, productId: number): Observable<Cart> {
     return this.httpClient.delete<Cart>(`${this.apiServerUrl}/api/carts/${cartId}/products/delete/${productId}`, {});
-  }
-
-  // public getCartById(cartId: number) : Observable<Cart> {
-  //   return this.httpClient.get(`${this.apiServerUrl}/api/carts/find/${cartId}, );
-  // }
-  
-  public getCartId(): string | null {
-    return localStorage.getItem(this.cartIdKey);
-  }
-
-  public setCartId(cartId: string): void {
-    localStorage.setItem(this.cartIdKey, cartId);
   }
 }

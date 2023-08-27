@@ -36,23 +36,23 @@ public class User implements Serializable {
     private String phoneNumber;
     private String address;
 
-    @Column(name = "enabled")
-    private boolean enabled;
+/*    @Column(name = "enabled")
+    private boolean enabled;*/
 
-    @Column(name = "confirmation_token")
-    private String confirmationToken;
+/*    @Column(name = "confirmation_token")
+    private String confirmationToken;*/
 
     public User () {}
 
-    public User (String email, String password, String firstName, String lastName, String phoneNumber, String address, boolean enabled, String confirmationToken) {
+    public User (String email, String password, String firstName, String lastName, String phoneNumber, String address) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.enabled = enabled;
-        this.confirmationToken = confirmationToken;
+//        this.enabled = enabled;
+//        this.confirmationToken = confirmationToken;
     }
 
     public Long getId() {
@@ -103,13 +103,15 @@ public class User implements Serializable {
         this.address = address;
     }
 
-    public boolean getEnabled() { return enabled; }
+/*    public boolean getEnabled() { return enabled; }
 
-    public void setEnabled(boolean enabled) { this.enabled = enabled; }
+    public void setEnabled(boolean enabled) { this.enabled = enabled; }*/
 
+/*
     public String getConfirmationToken() { return confirmationToken; }
 
     public void setConfirmationToken(String confirmationToken) { this.confirmationToken = confirmationToken; }
+*/
 
     @Override
     public String toString() {
@@ -121,8 +123,8 @@ public class User implements Serializable {
                 ", last name='" + lastName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", address='" + address + '\'' +
-                ", enabled='" + enabled + '\'' +
-                ", confirmation token='" + confirmationToken + '\'' +
+//                ", enabled='" + enabled + '\'' +
+//                ", confirmation token='" + confirmationToken + '\'' +
                 '}';
     }
 }

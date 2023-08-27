@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @Transactional
@@ -39,6 +40,7 @@ public class CartService {
     }
 
     public Cart addCart(Cart cart) {
+        cart.setName("CART" + 100000 + new Random().nextLong(999999));
         return cartRepository.save(cart);
     }
 

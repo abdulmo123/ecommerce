@@ -5,6 +5,4 @@ export interface User {
     lastName: string;
     phoneNumber: string;
     address: string;
-    enabled: boolean;
-    confirmationToken: string;
 };

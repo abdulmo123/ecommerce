@@ -19,6 +19,9 @@ public class Order implements Serializable {
     @Column(nullable = false, updatable = false)
     private Long id;
 
+    @Column(nullable=false, updatable=false)
+    private String name;
+
     private double totalPrice;
 
     @CreatedDate
@@ -31,7 +34,8 @@ public class Order implements Serializable {
 
     public Order () {}
 
-    public Order (double totalPrice, Cart cart) {
+    public Order (String name, double totalPrice, Cart cart) {
+        this.name = name;
         this.totalPrice = totalPrice;
         this.cart = cart;
     }
@@ -42,6 +46,14 @@ public class Order implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public double getTotalPrice() {
@@ -72,6 +84,7 @@ public class Order implements Serializable {
     public String toString() {
         return "Order{" +
                 "id=" + id +
+                ", name='" + name + '\'' +
                 ", total price='" + totalPrice + '\'' +
                 ", date='" + createdDate + '\'' +
                 ", cart='" + cart + '\'' +

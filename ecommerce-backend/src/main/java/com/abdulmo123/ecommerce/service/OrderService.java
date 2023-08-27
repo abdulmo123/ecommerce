@@ -12,8 +12,10 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @Transactional
@@ -39,6 +41,8 @@ public class OrderService {
     }
 
     public Order addOrder (Order order) {
+        order.setName("ORDER" + 100000 + new Random().nextLong(999999));
+        order.setCreatedDate(new Date());
         return orderRepository.save(order);
     }
 

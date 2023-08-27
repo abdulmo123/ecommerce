@@ -13,6 +13,8 @@ public class Cart implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
     private Long id;
+
+    @Column(nullable=false, updatable=false)
     private String name;
     private double currentPrice;
 

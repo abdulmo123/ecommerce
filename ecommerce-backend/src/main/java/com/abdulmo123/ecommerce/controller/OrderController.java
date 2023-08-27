@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/api")
 public class OrderController {
 
     @Autowired
@@ -23,36 +23,36 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping("/all")
+    @GetMapping("/orders/all")
     public ResponseEntity<List<Order>> getAllOrders () {
         List<Order> orders = orderService.getAllOrders();
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/orders/find/{id}")
     public ResponseEntity<Order> getOrderById(@PathVariable("id") Long id) {
         Order order = orderService.findOrderById(id);
         return new ResponseEntity<> (order, HttpStatus.OK);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/orders/add")
     public ResponseEntity<Order> addOrder(@RequestBody Order order) {
         Order newOrder = orderService.addOrder(order);
         return new ResponseEntity<>(newOrder, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/orders/update/{id}")
     public void updateOrder (@PathVariable("id") Long id, Order order) {
         orderService.updateOrder(id, order);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/orders/delete/{id}")
     public void deleteOrder(@PathVariable("id") Long id) {
         orderService.deleteOrder(id);
     }
 
-    @PostMapping("/carts/{cartId}/products/add/{productId}")
-    public ResponseEntity<Order> addProductToCart (@PathVariable(value="orderId") Long orderId, @PathVariable(value="cartId") Long cartId) {
+    @PostMapping("/orders/{orderId}/carts/add/{cartId}")
+    public ResponseEntity<Order> addCartToOrder (@PathVariable(value="orderId") Long orderId, @PathVariable(value="cartId") Long cartId) {
         Order order = orderService.addCartToOrder(orderId, cartId);
         return new ResponseEntity<>(order, HttpStatus.OK);
     }

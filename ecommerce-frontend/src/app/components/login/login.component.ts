@@ -17,9 +17,7 @@ export class LoginComponent implements OnInit {
     firstName: '',
     lastName: '',
     phoneNumber: '',
-    address: '',
-    enabled: false,
-    confirmationToken: ''
+    address: ''
   };
 
 

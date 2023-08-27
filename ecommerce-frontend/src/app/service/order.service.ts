@@ -20,4 +20,8 @@ export class OrderService {
   public addCartToOrder(orderId: number, cartId: number): Observable<Order> {
     return this.httpClient.post<Order>(`${this.apiServerUrl}/api/orders/${orderId}/carts/add/${cartId}`, {orderId, cartId});
   }
+
+  public createOrder(): Observable<Order> {
+    return this.httpClient.post<Order>(`${this.apiServerUrl}/api/orders/add`, {});
+  }
 }

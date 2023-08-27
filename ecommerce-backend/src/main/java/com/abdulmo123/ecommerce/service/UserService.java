@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService implements UserDetailsService {
     private UserRepository userRepository;
@@ -22,12 +24,18 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(email);
     }
 
-    public User findByConfirmationToken(String confirmationToken) {
+    /*public User findByConfirmationToken(String confirmationToken) {
         return userRepository.findByConfirmationToken(confirmationToken);
-    }
+    }*/
 
     public void saveUser(User user) {
+        String pn = user.getPhoneNumber();
+        user.setPhoneNumber(pn.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3"));
         userRepository.save(user);
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     @Override
