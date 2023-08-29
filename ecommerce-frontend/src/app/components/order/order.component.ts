@@ -8,6 +8,7 @@ import { OrderService } from 'src/app/service/order.service';
 import { CartComponent } from '../cart/cart.component';
 import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/service/user.service';
+import { CartDataService } from 'src/app/service/cart-data.service';
 
 @Component({
   selector: 'app-order',
@@ -18,12 +19,17 @@ export class OrderComponent {
   users: User[] = [];
   carts: Cart[] = [];
   orders: Order[] = [];
-  constructor(public orderService: OrderService, private cartService: CartService, private userService: UserService, private router: Router) {}
+  cartData: { productId: number; quantity: number; }[] | undefined;
+  cartSubtotal : number | undefined;
+  constructor(public orderService: OrderService, private cartService: CartService, private cartDataService: CartDataService, private userService: UserService, private router: Router) {}
 
   ngOnInit() {
     this.getAllCarts();
     this.getAllOrders();
     this.getAllUsers();
+    this.cartData = this.cartDataService.getCartData();
+    this.cartSubtotal = this.cartDataService.getCartSubtotal();
+    console.log("cart data: => ", this.cartData);
   }
 
   public getAllOrders(): void {
@@ -59,6 +65,17 @@ export class OrderComponent {
     )
   }
 
+  getQuantityForProduct(productId: number) {
+    const cartData = this.cartData;
+  
+    const cartProduct = cartData?.find(item => item.productId === productId);
+    if (cartProduct) {
+      return cartProduct.quantity;
+    }
+  
+    return 0;
+  } 
+
   goToHome() {
     this.router.navigate(['/home'])
   }
@@ -67,9 +84,4 @@ export class OrderComponent {
     this.router.navigate(['/cart'])
   }
 
-  // getSubtotal() {
-  //   let subtotal = new CartComponent(this.cartService, this.router);
-
-  //   return subtotal.getSubtotal();
-  // }
 }
