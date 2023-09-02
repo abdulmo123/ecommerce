@@ -22,6 +22,6 @@ export class CartDataService {
   }
 
   getCartSubtotal() {
-    return this.cartSubtotal;
+    return this.cartSubtotal.toFixed(2);
   }
 }

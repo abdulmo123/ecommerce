@@ -41,7 +41,7 @@ public class OrderService {
     }
 
     public Order addOrder (Order order) {
-        order.setName("ORDER" + 100000 + new Random().nextLong(999999));
+        order.setName(100000 + new Random().nextLong(999999));
         order.setCreatedDate(new Date());
         return orderRepository.save(order);
     }

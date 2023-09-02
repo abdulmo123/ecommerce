@@ -60,49 +60,8 @@ export class CartComponent {
     )
   }
 
-  onOrderAdd(cartId: number) : void {
-    let tempid = JSON.parse(localStorage.getItem('cartId') || '');
-    cartId = +tempid!;
+  goToOrder() {
     this.router.navigate(['/order'])
-    // add cart object to order
-    if (localStorage.getItem('orderId') === null) {
-      this.orderService.createOrder().subscribe(
-        (newOrder: Order) => {
-          this.order = newOrder;
-          localStorage.setItem('orderId', JSON.stringify(this.order.id!));
-          console.log("new order created!" + newOrder.id);
-
-          this.addCartToOrder(cartId);
-          console.log("cart added to new order");
-        },
-        (error: HttpErrorResponse) => {
-          alert(error.message);
-        }
-      )
-    }
-
-    else {
-      this.addCartToOrder(cartId);
-      console.log("cart added to existing order");
-    }
-  }
-
-  private addCartToOrder(cartId: number): void {
-    var newInt = localStorage.getItem('orderId');
-
-    this.currentOrderId = +newInt!;
-    this.orderService.addCartToOrder(this.currentOrderId!, cartId).subscribe(
-      () => {
-        console.log("cart id is : " + cartId);
-        console.log("cart added to order!");
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    )
-
-    this.getAllOrders();
-
   }
 
   public clearCart() : void {

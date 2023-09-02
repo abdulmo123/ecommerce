@@ -18,8 +18,12 @@ import { CartDataService } from 'src/app/service/cart-data.service';
 export class OrderComponent {
   users: User[] = [];
   carts: Cart[] = [];
+  cart: Cart | undefined;
   orders: Order[] = [];
-  cartData: { productId: number; quantity: number; }[] | undefined;
+  order: Order | undefined;
+  private currentCartId: number | undefined;
+  private currentOrderId : number | undefined;
+  cartData: { productId: number; quantity: number; } [] | undefined;
   cartSubtotal : number | undefined;
   constructor(public orderService: OrderService, private cartService: CartService, private cartDataService: CartDataService, private userService: UserService, private router: Router) {}
 
@@ -28,7 +32,7 @@ export class OrderComponent {
     this.getAllOrders();
     this.getAllUsers();
     this.cartData = this.cartDataService.getCartData();
-    this.cartSubtotal = this.cartDataService.getCartSubtotal();
+    this.cartSubtotal = +Number(this.cartDataService.getCartSubtotal()).toFixed(2);
     console.log("cart data: => ", this.cartData);
   }
 
@@ -63,6 +67,51 @@ export class OrderComponent {
         alert(error.message);
       }
     )
+  }
+
+  onOrderAdd(cartId: number) : void {
+    let tempid = JSON.parse(localStorage.getItem('cartId') || '');
+    cartId = +tempid!;
+    this.router.navigate(['/home'])
+    // add cart object to order
+    if (localStorage.getItem('orderId') === null) {
+      this.orderService.createOrder().subscribe(
+        (newOrder: Order) => {
+          this.order = newOrder;
+          localStorage.setItem('orderId', JSON.stringify(this.order.id!));
+          console.log("new order created!" + newOrder.id);
+
+          this.addCartToOrder(cartId);
+          console.log("cart added to new order");
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      )
+    }
+
+    else {
+      this.addCartToOrder(cartId);
+      console.log("cart added to existing order");
+    }
+  }
+
+  private addCartToOrder(cartId: number): void {
+    var newInt = localStorage.getItem('orderId');
+
+    this.currentOrderId = +newInt!;
+    this.orderService.addCartToOrder(this.currentOrderId!, cartId).subscribe(
+      () => {
+        console.log("cart id is : " + cartId);
+        console.log("cart added to order!");
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    )
+
+    this.getAllOrders();
+
   }
 
   getQuantityForProduct(productId: number) {

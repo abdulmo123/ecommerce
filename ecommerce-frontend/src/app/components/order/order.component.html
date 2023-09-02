@@ -444,8 +444,8 @@
                                                         </div>
                                                     </label>
                                                     <div class="edit-btn bg-light  rounded">
-                                                        <a href="#" data-bs-toggle="tooltip" data-placement="top"
-                                                            title="" data-bs-original-title="Edit">
+                                                        <a data-bs-toggle="tooltip" data-placement="top" title=""
+                                                            data-bs-original-title="Edit">
                                                             <i class="bx bx-pencil font-size-16"></i>
                                                         </a>
                                                     </div>
@@ -530,9 +530,9 @@
                     <a href="ecommerce-products.html" class="btn btn-link text-muted" (click)="backToCart()">
                         <i class="mdi mdi-arrow-left me-1"></i> Return to Cart </a>
                 </div> <!-- end col -->
-                <div class="col">
+                <div ngFor="let cart of carts" class="col">
                     <div class="text-end mt-2 mt-sm-0">
-                        <a href="#" class="btn btn-success">
+                        <a (click)="onOrderAdd(cart?.id!)" class="btn btn-success">
                             <i class="mdi mdi-cart-outline me-1"></i> Submit </a>
                     </div>
                 </div> <!-- end col -->
@@ -542,7 +542,7 @@
             <div class="card checkout-order-summary">
                 <div class="card-body">
                     <div class="p-3 bg-light mb-3">
-                        <h5 class="font-size-16 mb-0">Order Summary <span class="float-end ms-2">{{order.name}}</span>
+                        <h5 class="font-size-16 mb-0">Order Summary <span class="float-end ms-2">#{{order.name}}</span>
                         </h5>
                     </div>
                     <div *ngFor="let cart of carts; index as i" class="table-responsive">
@@ -597,7 +597,7 @@
                                         <h5 class="font-size-14 m-0">Estimated Tax :</h5>
                                     </td>
                                     <td>
-                                        $18.20
+                                        $15.00
                                     </td>
                                 </tr>
 
@@ -606,7 +606,7 @@
                                         <h5 class="font-size-14 m-0">Total:</h5>
                                     </td>
                                     <td>
-                                        ${{cartSubtotal! + 25.00 + 18.20}}
+                                        ${{cartSubtotal! + 25 + 15}}
                                     </td>
                                 </tr>
                             </tbody>
