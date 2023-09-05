@@ -17,13 +17,13 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-md-5 my-auto">
+                <div ngFor="let cart of cartProducts" class="col-md-5 my-auto">
                     <ul class="nav justify-content-end">
 
                         <li class="nav-item">
                             <a class="nav-link" (click)="goToCart()" style="cursor: pointer">
                                 <i class="fa fa-shopping-cart"></i> Cart
-                                ({{cartSize()}})
+                                ({{cart?.cartProducts?.length}})
                             </a>
                         </li>
                         <li class="nav-item">
