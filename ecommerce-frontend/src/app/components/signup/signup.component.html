@@ -7,10 +7,10 @@
                         <h5 class="brand-name" style="cursor: pointer">Shoplify</h5>
                     </a>
                 </div>
-                <!-- <div class="col-md-5 my-auto">
+                <div class="col-md-5 my-auto">
                     <ul class="nav justify-content-end">
                         <li class="nav-item">
-                            <a class="nav-link">
+                            <a class="nav-link" (click)="goToLogin()">
                                 <i class="fa fa-heart"></i> Login
                             </a>
                         </li>
@@ -29,7 +29,7 @@
                             </ul>
                         </li>
                     </ul>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>
@@ -45,9 +45,9 @@
             <div class="d-table-cell align-middle">
 
                 <div class="text-center mt-4">
-                    <h1 class="h2">Welcome back!</h1>
+                    <h1 class="h2">Get started</h1>
                     <p class="lead">
-                        Login to Shoplify to continue your search for the best products available
+                        Start shopping for the latest and greatest products on Shoplify
                     </p>
                 </div>
 
@@ -55,27 +55,42 @@
                     <div class="card-body">
                         <div class="m-sm-4">
                             <form>
+                                <small>fields marked with an asterisk (<span style="color: red">*</span>) are
+                                    required</small>
+                                <br>
                                 <div class="form-group">
-                                    <label>Email</label>
-                                    <input class="form-control form-control-lg" type="text" name="username"
-                                        [(ngModel)]="user.email" placeholder="Email">
+                                    <label>First Name <span style="color: red">*</span></label>
+                                    <input class="form-control form-control-lg" type="text" name="fname"
+                                        placeholder="Enter first name" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Password</label>
+                                    <label>Last Name <span style="color: red">*</span></label>
+                                    <input class="form-control form-control-lg" type="text" name="lname"
+                                        placeholder="Enter last name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input class="form-control form-control-lg" type="text" name="phonenumber"
+                                        placeholder="Enter phone number">
+                                </div>
+                                <div class="form-group">
+                                    <label>Home Address</label>
+                                    <input class="form-control form-control-lg" type="text" name="homeaddress"
+                                        placeholder="Enter home address">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email <span style="color: red">*</span></label>
+                                    <input class="form-control form-control-lg" type="email" name="email"
+                                        placeholder="Enter email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password <span style="color: red">*</span></label>
                                     <input class="form-control form-control-lg" type="password" name="password"
-                                        [(ngModel)]="user.password" placeholder="Password">
+                                        placeholder="Enter password" required>
                                 </div>
-                                <div style="display: flex; justify-content: space-evenly;">
-                                    <div class="text-center mt-3">
-                                        <button (click)="handleLogin()"
-                                            class="btn btn-outline-primary btn-block">Login</button>
-                                        <!-- <button type="submit" class="btn btn-lg btn-primary">Sign up</button> -->
-                                    </div>
-                                    <div class="text-center mt-3">
-                                        <button (click)="goToSignUp()" class="btn btn-outline-secondary btn-block">Sign
-                                            Up</button>
-                                        <!-- <button type="submit" class="btn btn-lg btn-primary">Sign up</button> -->
-                                    </div>
+                                <div class="text-center mt-3">
+                                    <a class="btn btn-lg btn-outline-primary btn-block">Sign up</a>
+                                    <!-- <button type="submit" class="btn btn-lg btn-primary">Sign up</button> -->
                                 </div>
                             </form>
                         </div>
@@ -86,26 +101,3 @@
         </div>
     </div>
 </div>
-<!-- <div class="login-container animated fadeInDown bootstrap snippets bootdeys">
-    <div class="loginbox bg-white">
-        <div class="loginbox-title">SIGN IN</div>
-        <div class="loginbox-textbox">
-            <input type="text" name="username" [(ngModel)]="user.email" class="form-control" placeholder="Email">
-        </div>
-        <div class="loginbox-textbox">
-            <input type="password" name="password" [(ngModel)]="user.password" class="form-control"
-                placeholder="Password">
-        </div>
-        <div class="loginbox-forgot">
-            <a href="">Forgot Password?</a>
-        </div>
-        <div class="loginbox-submit">
-            <button (click)="handleLogin()" class="btn btn-primary btn-block">Login</button>
-        </div>
-        <div class="loginbox-signup">
-            <a (click)="goToSignUp()">Sign Up</a>
-        </div>
-    </div>
-    <div class="logobox">
-    </div>
-</div> -->
