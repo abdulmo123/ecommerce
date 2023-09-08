@@ -94,6 +94,8 @@ export class OrderComponent {
       this.addCartToOrder(cartId);
       console.log("cart added to existing order");
     }
+
+    this.router.navigate(['/orderconf']);
   }
 
   private addCartToOrder(cartId: number): void {
@@ -123,7 +125,7 @@ export class OrderComponent {
     }
   
     return 0;
-  } 
+  }
 
   goToHome() {
     this.router.navigate(['/home'])

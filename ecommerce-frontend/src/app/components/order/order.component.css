@@ -40,6 +40,31 @@
     font-size: 15px;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+body {
+background-color: #ffe8d2;
+font-family: 'Montserrat', sans-serif
+}
+.card {
+border: none
+}
+.logo {
+background-color: #eeeeeea8
+}
+.totals tr td {
+font-size: 13px
+}
+.footer {
+background-color: #eeeeeea8
+}
+.footer span {
+font-size: 12px
+}
+.product-qty span {
+font-size: 12px;
+color: #dedbdb
+}
+
 .card {
     box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
 }
@@ -89,6 +114,7 @@ body {
     border: 1px solid #eff0f2;
     border-radius: 1rem;
 }
+
 .activity-checkout {
     list-style: none
 }
@@ -127,8 +153,6 @@ body {
     top: 3px;
     left: -65px
 }
-
-
 
 .avatar-xs {
     height: 1rem;

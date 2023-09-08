@@ -557,8 +557,9 @@
                             <tbody>
                                 <tr *ngFor="let cartProduct of cart.cartProducts;">
                                     <th scope="row">
-                                        <a class="product-thumb" href="#"><img src="{{cartProduct?.picture}}"
-                                                alt="Product" class="img-fluid"></a>
+                                        <a class="product-thumb" href="#">
+                                            <img src="{{cartProduct?.picture}}" alt="Product" class="img-fluid">
+                                        </a>
                                     </th>
                                     <td>
                                         <h5 class="font-size-16 text-truncate"><a href="#"

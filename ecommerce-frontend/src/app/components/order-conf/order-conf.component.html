@@ -1,0 +1,145 @@
+<div class="main-navbar shadow-sm sticky-top">
+    <div class="top-navbar">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2 my-auto d-none d-sm-none d-md-block d-lg-block">
+                    <a class="nav-link">
+                        <h5 class="brand-name" style="cursor: pointer">Shoplify</h5>
+                    </a>
+                </div>
+                <div class="col-md-5 my-auto">
+                    <ul class="nav justify-content-end">
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="goToHome()">
+                                <i class="fa fa-heart"></i> Home
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-user"></i> Username
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fa fa-list"></i> My Orders</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fa fa-heart"></i> My Wishlist</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fa fa-shopping-cart"></i> My Cart</a>
+                                </li>
+                                <li><a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i> Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-5 mb-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div *ngFor="let user of users" class="invoice p-5">
+                    <h5>Your order Confirmed!</h5> <span class="font-weight-bold d-block mt-4">Hello,
+                        {{user.firstName}}</span>
+                    <span>You order has been confirmed and will be shipped in next two days!</span>
+                    <div class="payment border-top mt-3 mb-3 border-bottom table-responsive">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr *ngFor="let order of orders">
+                                    <td>
+                                        <div class="py-2"> <span class="d-block text-muted">Order Date</span>
+                                            <span>{{ formattedDate }}</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="py-2"> <span class="d-block text-muted">Order No</span>
+                                            <span>{{order?.name}}</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="py-2"> <span class="d-block text-muted">Payment</span> <span><img
+                                                    src="https://img.icons8.com/color/48/000000/mastercard.png"
+                                                    width="20" /></span> </div>
+                                    </td>
+                                    <td>
+                                        <div class="py-2"> <span class="d-block text-muted">Shipping Address</span>
+                                            <span>{{user.address}}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div *ngFor="let cart of carts; index as i" class="product border-bottom table-responsive">
+                        <table class="table table-borderless">
+                            <tbody *ngFor="let cartProduct of cart?.cartProducts;">
+                                <tr>
+                                    <td width="20%"> <img src="{{cartProduct?.picture}}" width="90"> </td>
+                                    <td width="60%"> <span class="font-weight-bold">{{cartProduct.name}}</span>
+                                        <div class="product-qty"> <span class="d-block">Quantity:
+                                                {{getQuantityForProduct(cartProduct.id)}}</span>
+                                        </div>
+                                    </td>
+                                    <td width="20%">
+                                        <div class="text-right">
+                                            <span class="font-weight-bold">${{ (cartProduct?.price || 0) *
+                                                getQuantityForProduct(cartProduct?.id || 0) }}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row d-flex justify-content-end">
+                        <div class="col-md-5">
+                            <table class="table table-borderless">
+                                <tbody class="totals">
+                                    <tr>
+                                        <td>
+                                            <div class="text-left"> <span class="text-muted">Subtotal</span> </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-right"> <span>${{cartSubtotal}}</span> </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="text-left"> <span class="text-muted">Shipping Fee</span> </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-right"> <span>$25.00</span> </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="text-left"> <span class="text-muted">Tax Fee</span> </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-right"> <span>$15.00</span> </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+                                    <tr class="border-top border-bottom">
+                                        <td>
+                                            <div class="text-left"> <span class="font-weight-bold">Total</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-right"> <span class="font-weight-bold">${{cartSubtotal! +
+                                                    25
+                                                    + 15}}</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- <p>We will be sending shipping confirmation email when the item shipped successfully!</p> -->
+                    <p class="font-weight-bold mb-0">Thanks for shopping with us!</p> <span>Shoplify</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
