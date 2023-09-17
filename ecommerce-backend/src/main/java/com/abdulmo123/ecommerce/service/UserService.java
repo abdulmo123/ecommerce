@@ -26,10 +26,6 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(email);
     }
 
-    /*public User findByConfirmationToken(String confirmationToken) {
-        return userRepository.findByConfirmationToken(confirmationToken);
-    }*/
-
     public User saveUser(User user) {
         PasswordGenerator passwordGenerator = new PasswordGenerator();
         String pn = user.getPhoneNumber();

@@ -28,11 +28,11 @@ export class CartComponent {
   };
 
   constructor(public cartService: CartService, private cartDataService: CartDataService, private orderService: OrderService, private router: Router) {}
-  
+
   ngOnInit() {
     this.getAllCarts();
   }
-  
+
   public getAllCarts(): void {
     this.cartService.getAllCarts().subscribe(
       (response: Cart[]) => {
@@ -96,19 +96,16 @@ export class CartComponent {
   getSubtotal() {
     let sum = 0;
     sum = this.updateTotalPrice();
-    // this.carts[0].currentPrice = sum;
     this.cartDataService.setCartSubtotal(sum);
 
     return sum;
   }
-  
+
   updateTotalPrice() : number {
     let sum = 0;
 
-    // Create an object to store product data
     type CartData = { [key: number]: number };
 
-    // Create an object to store product data
     const cartDataMap: CartData = {};
     for (const productIdAsString in this.selectedQuantity) {
       if (this.selectedQuantity.hasOwnProperty(productIdAsString)) {
@@ -119,7 +116,7 @@ export class CartComponent {
         if (product && !isNaN(quantity)) {
           sum += (product.price * quantity);
         }
-        
+
         if (cartDataMap.hasOwnProperty(productId)) {
           cartDataMap[productId] += quantity;
         }
@@ -129,7 +126,6 @@ export class CartComponent {
       }
     }
 
-    // Convert cartDataMap to an array of objects if needed
     this.cartData = Object.keys(cartDataMap).map(productId => ({
       productId: parseInt(productId, 10),
       quantity: cartDataMap[parseInt(productId, 10)],

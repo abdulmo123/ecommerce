@@ -62,20 +62,11 @@ public class CartController {
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
 
-    /*@PostMapping("/carts/add")
-    public ResponseEntity<Cart> addCart() {
-        Cart newCart = cartService.createCart();
-        return new ResponseEntity<>(newCart, HttpStatus.CREATED);
-    }*/
-
     @PostMapping("/carts/add")
     public ResponseEntity<Cart> addCart(@RequestBody Map<String, Long> request) {
         Long userId = request.get("userId");
-        /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = ((CurrentUserDetails) authentication.getPrincipal()).getUser();*/
-
         User currentUser = userService.findUserById(userId);
-//        Cart newCart = cartService.addCart(cart);
+
         Cart newCart = new Cart();
         newCart.setUser(currentUser);
 
@@ -95,26 +86,6 @@ public class CartController {
         }
         cartService.deleteCart(id);
     }
-
-    /*@PostMapping("/orders/{orderId}/carts/add/{cartId}")
-    public ResponseEntity<Cart> addCartToOrder(@PathVariable(value="orderId") Long orderId, @PathVariable(value="cartId") Long cartId) {
-        Cart newCartToOrder = cartService.findCartById(cartId);
-        Cart finalNewCartToOrder = newCartToOrder;
-
-        if (cartRepository.existsById(cartId)) {
-            newCartToOrder = orderRepository.findById(orderId)
-                    .map(order -> {
-                        order.setCart(finalNewCartToOrder);
-                        return cartService.addCart(finalNewCartToOrder);
-                    })
-                    .orElseThrow(() -> new OrderNotFoundException("Order with id: " + orderId + " not found!"));
-        }
-        else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<>(newCartToOrder,HttpStatus.CREATED);
-    }*/
 
     @PostMapping("/carts/{cartId}/products/add/{productId}")
     public ResponseEntity<Cart> addProductToCart (@PathVariable(value="cartId") Long cartId, @PathVariable(value="productId") Long productId) {

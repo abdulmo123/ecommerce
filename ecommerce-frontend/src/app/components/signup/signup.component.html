@@ -1,127 +1,110 @@
 <div class="main-navbar shadow-sm sticky-top">
-    <div class="top-navbar">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-2 my-auto d-none d-sm-none d-md-block d-lg-block">
-                    <a class="nav-link">
-                        <h5 class="brand-name" style="cursor: pointer">Shoplify</h5>
-                    </a>
-                </div>
-                <div class="col-md-5 my-auto">
-                    <ul class="nav justify-content-end">
-                        <li class="nav-item">
-                            <a class="nav-link" (click)="goToLogin()">
-                                <i class="fa fa-heart"></i> Login
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-user"></i> Username
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="fa fa-list"></i> My Orders</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="fa fa-heart"></i> My Wishlist</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="fa fa-shopping-cart"></i> My Cart</a>
-                                </li>
-                                <li><a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i> Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+  <div class="top-navbar">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-2 my-auto d-none d-sm-none d-md-block d-lg-block">
+          <a class="nav-link">
+            <h5 class="brand-name" style="cursor: pointer">Shoplify</h5>
+          </a>
         </div>
+        <div class="col-md-5 my-auto">
+          <ul class="nav justify-content-end">
+            <li class="nav-item">
+              <a class="nav-link" (click)="goToLogin()">
+                <i class="fa fa-heart"></i> Login
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <i class="fa fa-user"></i> Username
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a></li>
+                <li><a class="dropdown-item" href="#"><i class="fa fa-list"></i> My Orders</a></li>
+                <li><a class="dropdown-item" href="#"><i class="fa fa-heart"></i> My Wishlist</a></li>
+                <li><a class="dropdown-item" href="#"><i class="fa fa-shopping-cart"></i> My Cart</a>
+                </li>
+                <li><a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i> Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css"
-    integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
+  href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css"
+  integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 <div class="container h-100">
-    <div class="row h-100">
-        <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
-            <div class="d-table-cell align-middle">
+  <div class="row h-100">
+    <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+      <div class="d-table-cell align-middle">
 
-                <div class="text-center mt-4">
-                    <h1 class="h2">Get started</h1>
-                    <p class="lead">
-                        Start shopping for the latest and greatest products on Shoplify
-                    </p>
-                </div>
-
-                <div class="card">
-                    <div class="card-body">
-                        <div class="m-sm-4">
-                            <form #signupForm="ngForm" (ngSubmit)="handleSignUp()">
-                                <small>Fields marked with an asterisk (<span style="color: red">*</span>) are
-                                    required</small>
-                                <br>
-
-                                <div class="form-group">
-                                    <label for="firstName">First Name <span style="color: red">*</span></label>
-                                    <input class="form-control form-control-lg" type="text" id="firstName"
-                                        name="firstName" [(ngModel)]="user.firstName" required>
-                                    <!-- <div
-                                        *ngIf="signupForm.controls.firstName.invalid && signupForm.controls.firstName.touched">
-                                        <div *ngIf="signupForm.controls.firstName.errors.required">First Name is
-                                            required.</div>
-                                    </div> -->
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="lastName">Last Name <span style="color: red">*</span></label>
-                                    <input class="form-control form-control-lg" type="text" id="lastName"
-                                        name="lastName" [(ngModel)]="user.lastName" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="phoneNumber">Phone Number</label>
-                                    <input class="form-control form-control-lg" type="text" id="phoneNumber"
-                                        name="phoneNumber" [(ngModel)]="user.phoneNumber">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="homeAddress">Home Address</label>
-                                    <input class="form-control form-control-lg" type="text" id="homeAddress"
-                                        name="homeAddress" [(ngModel)]="user.address">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="email">Email <span style="color: red">*</span></label>
-                                    <input class="form-control form-control-lg" type="email" id="email" name="email"
-                                        [(ngModel)]="user.email" required>
-                                    <!-- Display validation error messages for email -->
-                                    <!-- <div
-                                        *ngIf="signupForm.controls.email.invalid && signupForm.controls.email.touched">
-                                        <div *ngIf="signupForm.controls.email.errors.required">Email is required.</div>
-                                        <div *ngIf="signupForm.controls.email.errors.email">Invalid email format.</div>
-                                    </div> -->
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="password">Password <span style="color: red">*</span></label>
-                                    <input class="form-control form-control-lg" type="password" id="password"
-                                        name="password" [(ngModel)]="user.password" required>
-                                    <!-- Display validation error message if the field is required and empty -->
-                                    <!-- <div
-                                        *ngIf="signupForm.controls.password.invalid && signupForm.controls.password.touched">
-                                        <div *ngIf="signupForm.controls.password.errors.required">Password is required.
-                                        </div>
-                                    </div> -->
-                                </div>
-
-                                <div class="text-center mt-3">
-                                    <button [disabled]="signupForm.invalid" type="submit"
-                                        class="btn btn-lg btn-outline-secondary btn-block">Sign up</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+        <div class="text-center mt-4">
+          <h1 class="h2">Get started</h1>
+          <p class="lead">
+            Start shopping for the latest and greatest products on Shoplify
+          </p>
         </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="m-sm-4">
+              <form #signupForm="ngForm" (ngSubmit)="handleSignUp()">
+                <small>Fields marked with an asterisk (<span style="color: red">*</span>) are
+                  required</small>
+                <br>
+
+                <div class="form-group">
+                  <label for="firstName">First Name <span style="color: red">*</span></label>
+                  <input class="form-control form-control-lg" type="text" id="firstName" name="firstName"
+                    [(ngModel)]="user.firstName" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="lastName">Last Name <span style="color: red">*</span></label>
+                  <input class="form-control form-control-lg" type="text" id="lastName" name="lastName"
+                    [(ngModel)]="user.lastName" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="phoneNumber">Phone Number</label>
+                  <input class="form-control form-control-lg" type="text" id="phoneNumber" name="phoneNumber"
+                    [(ngModel)]="user.phoneNumber">
+                </div>
+
+                <div class="form-group">
+                  <label for="homeAddress">Home Address</label>
+                  <input class="form-control form-control-lg" type="text" id="homeAddress" name="homeAddress"
+                    [(ngModel)]="user.address">
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Email <span style="color: red">*</span></label>
+                  <input class="form-control form-control-lg" type="email" id="email" name="email"
+                    [(ngModel)]="user.email" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="password">Password <span style="color: red">*</span></label>
+                  <input class="form-control form-control-lg" type="password" id="password" name="password"
+                    [(ngModel)]="user.password" required>
+                </div>
+
+                <div class="text-center mt-3">
+                  <button [disabled]="signupForm.invalid" type="submit"
+                    class="btn btn-lg btn-outline-secondary btn-block">Sign up</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
+  </div>
 </div>

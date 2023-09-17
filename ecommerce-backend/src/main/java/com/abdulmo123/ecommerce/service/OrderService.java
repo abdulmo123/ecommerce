@@ -2,10 +2,8 @@ package com.abdulmo123.ecommerce.service;
 
 import com.abdulmo123.ecommerce.exception.CartNotFoundException;
 import com.abdulmo123.ecommerce.exception.OrderNotFoundException;
-import com.abdulmo123.ecommerce.exception.ProductNotFoundException;
 import com.abdulmo123.ecommerce.model.Cart;
 import com.abdulmo123.ecommerce.model.Order;
-import com.abdulmo123.ecommerce.model.Product;
 import com.abdulmo123.ecommerce.repository.CartRepository;
 import com.abdulmo123.ecommerce.repository.OrderRepository;
 import jakarta.transaction.Transactional;

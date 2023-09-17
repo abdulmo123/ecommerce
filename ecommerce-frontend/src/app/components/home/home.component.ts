@@ -20,7 +20,7 @@ export class HomeComponent {
   order: Order | undefined;
   productByCatArr: Product[] = [];
   private currentCartId: number | undefined;
-
+  currentCartSize: number | undefined = 0;
 
   constructor (private orderService: OrderService, private productService: ProductService, private cartService: CartService, private router: Router) {}
   ngOnInit() {
@@ -32,7 +32,6 @@ export class HomeComponent {
     this.productService.getAllProducts().subscribe(
       (response: Product[]) => {
         this.products = response;
-        // this.productByCatArr = response;
         console.log(response);
       },
       (error: HttpErrorResponse) => {
@@ -63,13 +62,10 @@ export class HomeComponent {
         alert(error.message);
       }
     )
-
-    // this.carts = this.cart?.cartProducts!;
   }
 
   logout() {
     localStorage.removeItem('userId');
-    // clear and then delete the existing cart and remove cartId in localStorage
     const cartId = localStorage.getItem('cartId');
     const orderId = localStorage.getItem('orderId');
     if (orderId !== null) {
@@ -97,7 +93,6 @@ export class HomeComponent {
 
     localStorage.removeItem('cartId');
     localStorage.removeItem('orderId');
-    // this.cartService.deletecart
     console.log("logout successful!")
     this.router.navigate(['/login']);
   }
@@ -134,15 +129,12 @@ export class HomeComponent {
     const userId = localStorage.getItem('userId');
 
     if(userId) {
-      // check if cart id doesn't exist (indicates that cart doesn't exist)
       if (localStorage.getItem('cartId') === null) {
-        // create a new cart
         this.cartService.createCart(+userId).subscribe(
           (newCart: Cart) => {
             this.cart = newCart;
             localStorage.setItem('cartId', JSON.stringify(this.cart.id!))
             console.log("new cart created!" + newCart);
-            // add the product to the new cart
             this.addProductToCart(productId);
             console.log("product added to new cart!");
           },
@@ -152,7 +144,6 @@ export class HomeComponent {
         );
       }
       else {
-        // add product to existing cart
         this.addProductToCart(productId);
         console.log('product added to exisiting cart!');
       }
@@ -176,8 +167,8 @@ export class HomeComponent {
       }
     )
 
-    console.log("all the carts ===> " + this.carts);
-    console.log("cart array: ===> " + this.carts.length);
+    this.currentCartSize = this.carts[0].cartProducts!.length;
+    console.log("current cart size => ", this.currentCartSize);
     this.getAllCarts();
   }
 

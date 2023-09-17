@@ -14,10 +14,6 @@ public class CurrentUserDetails implements UserDetails {
     public CurrentUserDetails(User user) {
         this.user = user;
     }
-/*
-    public CurrentUserDetails() {
-        super();
-    }*/
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

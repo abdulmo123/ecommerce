@@ -27,7 +27,6 @@ public class LoginController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             User currentUser = ((CurrentUserDetails) authentication.getPrincipal()).getUser();
-//            ((CurrentUserDetails) authentication.getPrincipal()).setUser(currentUser);
             return ResponseEntity.ok("User authenticated successfully. user: ==> " + currentUser);
         }
         else {

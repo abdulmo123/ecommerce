@@ -22,7 +22,7 @@
             <li class="nav-item">
               <a class="nav-link" (click)="goToCart()" style="cursor: pointer">
                 <i class="fa fa-shopping-cart"></i> Cart
-                ({{cart?.cartProducts?.length}})
+                ({{currentCartSize}})
               </a>
             </li>
             <li class="nav-item">
@@ -33,20 +33,6 @@
             <li class="nav-item"><a (click)="logout()" style="cursor: pointer" class="nav-link"><i
                   class="fa fa-sign-out"></i> Logout</a>
             </li>
-            <!-- <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                <i class="fa fa-user"></i> Username
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item"><i class="fa fa-user"></i> Profile</a></li>
-                <li><a class="dropdown-item"><i class="fa fa-list"></i> My Orders</a></li>
-                <li><a class="dropdown-item"><i class="fa fa-heart"></i> My Wishlist</a></li>
-                <li><a class="dropdown-item"><i class="fa fa-shopping-cart"></i> My Cart</a>
-                </li>
-                <li><a class="dropdown-item"><i class="fa fa-sign-out"></i> Logout</a></li>
-              </ul>
-            </li> -->
           </ul>
         </div>
       </div>
@@ -96,8 +82,6 @@
           <div class="cp_img">
             <img src="{{product?.picture}}" alt="Product" class="img-fluid">
             <div class="hover">
-              <!-- <a href="javascript:void(0);"
-                                class="btn btn-primary btn-sm waves-effect"><i class="zmdi zmdi-plus"></i></a> -->
               <a (click)="onCartAdd(product.id)" href="javascript:void(0);"
                 class="btn btn-primary btn-sm waves-effect"><i class="zmdi zmdi-shopping-cart"></i></a>
             </div>

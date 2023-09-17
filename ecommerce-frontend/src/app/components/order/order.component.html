@@ -408,48 +408,6 @@
                 </div>
               </div>
             </li>
-            <!-- <li class="checkout-item">
-                            <div class="avatar checkout-icon p-1">
-                                <div class="avatar-title rounded-circle bg-primary">
-                                    <i class="bx bxs-truck text-white font-size-20"></i>
-                                </div>
-                            </div>
-                            <div class="feed-item-list">
-                                <div>
-                                    <h5 class="font-size-16 mb-1">Shipping Info</h5>
-                                    <br>
-                                    <div class="mb-3">
-                                        <div class="row">
-                                            <div class="col-lg-4 col-sm-6">
-                                                <div data-bs-toggle="collapse">
-                                                    <label class="card-radio-label mb-0">
-                                                        <input type="radio" name="address" id="info-address1"
-                                                            class="card-radio-input" checked="">
-                                                        <div *ngFor="let user of users"
-                                                            class="card-radio text-truncate p-3">
-                                                            <span class="fs-14 mb-4 d-block">Address 1</span>
-                                                            <span class="fs-14 mb-2 d-block">{{user.firstName}}
-                                                                {{user.lastName}}</span>
-                                                            <span
-                                                                class="text-muted fw-normal text-wrap mb-1 d-block">{{user.address}}</span>
-
-                                                            <span class="text-muted fw-normal d-block">No.
-                                                                {{user.phoneNumber}}</span>
-                                                        </div>
-                                                    </label>
-                                                    <div class="edit-btn bg-light  rounded">
-                                                        <a data-bs-toggle="tooltip" data-placement="top" title=""
-                                                            data-bs-original-title="Edit">
-                                                            <i class="bx bx-pencil font-size-16"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li> -->
             <li class="checkout-item">
               <div class="avatar checkout-icon p-1">
                 <div class="avatar-title rounded-circle bg-primary">
@@ -520,21 +478,20 @@
         <div class="col">
           <a class="btn btn-link text-muted" (click)="backToCart()">
             <i class="mdi mdi-arrow-left me-1"></i> Return to Cart </a>
-        </div> <!-- end col -->
+        </div>
         <div ngFor="let cart of carts" class="col">
           <div class="text-end mt-2 mt-sm-0">
             <a (click)="onOrderAdd(cart?.id!)" class="btn btn-success">
               <i class="mdi mdi-cart-outline me-1"></i> Submit </a>
           </div>
-        </div> <!-- end col -->
-      </div> <!-- end row-->
+        </div>
+      </div>
     </div>
     <div class="col-xl-4">
       <div class="card checkout-order-summary">
         <div class="card-body">
           <div class="p-3 bg-light mb-3">
             <h5 class="font-size-16 mb-0">Order Summary
-              <!-- <span class="float-end ms-2">#{{order.name}}</span> -->
             </h5>
           </div>
           <div *ngFor="let cart of carts; index as i" class="table-responsive">
@@ -608,6 +565,4 @@
       </div>
     </div>
   </div>
-  <!-- end row -->
-
 </div>

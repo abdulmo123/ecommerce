@@ -31,18 +31,15 @@ export class SignupComponent {
   }
 
   handleSignUp() {
-    // Set signupFormSubmitted to true to indicate that the form has been submitted
     this.signupFormSubmitted = true;
 
     if (this.signupForm!.valid) {
-      // Call the AuthService's signup method to send the user data to the server
       this.auth.signup(this.user).subscribe(
         (response) => {
           console.log("successful signup!")
           this.router.navigate(['/login']);
         },
         (error) => {
-          // Handle signup error (e.g., display an error message to the user)
           console.log("failed signup!");
         }
       );

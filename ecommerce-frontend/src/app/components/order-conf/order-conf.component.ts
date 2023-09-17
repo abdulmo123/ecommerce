@@ -39,11 +39,9 @@ export class OrderConfComponent {
     this.getAllUsers();
     this.cartData = this.cartDataService.getCartData();
     this.cartSubtotal = +Number(this.cartDataService.getCartSubtotal()).toFixed(2);
-    // console.log("date before formatting => ", this.orders[0].createdDate);
   }
 
   formatDate() : void {
-    // console.log("date before formatting => ", this.order?.createdDate);
     const dateObj = new Date(this.orders[0].createdDate!);
     const monthAbbreviation = dateObj.toLocaleString('en-US', { month: 'short' });
     const day = dateObj.getDate();

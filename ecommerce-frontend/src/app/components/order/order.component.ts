@@ -76,7 +76,6 @@ export class OrderComponent {
     let tempid = JSON.parse(localStorage.getItem('cartId') || '');
     cartId = +tempid!;
     this.router.navigate(['/home'])
-    // add cart object to order
     if (localStorage.getItem('orderId') === null) {
       this.orderService.createOrder().subscribe(
         (newOrder: Order) => {

@@ -11,7 +11,6 @@ import com.abdulmo123.ecommerce.repository.ProductRepository;
 import com.abdulmo123.ecommerce.service.CartService;
 import com.abdulmo123.ecommerce.service.CategoryService;
 import com.abdulmo123.ecommerce.service.ProductService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -104,32 +103,6 @@ public class ProductController {
 
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
-
-//    @PostMapping("/carts/{cartId}/products/add/{productId}")
-    /*@PostMapping("/carts/products/add/{productId}")
-    public ResponseEntity<Product> addProductToCart (@PathVariable(value="productId") Long productId) {
-        Product newCartProduct = productService.findProductById(productId);
-        Product finalNewCartProduct = newCartProduct;
-        Long cartId = 1L;
-        if (productRepository.existsById(productId)) {
-            newCartProduct = cartRepository.findById(cartId)
-                    .map(cart -> {
-                        if (cart == null || cart.getCartProducts().isEmpty()) {
-                            cart = new Cart();
-                        }
-                        cart.getCartProducts().add(finalNewCartProduct);
-                        return productService.addProduct(finalNewCartProduct);
-
-                    })
-                    .orElseThrow(() -> new CartNotFoundException("Cart with id: " + cartId + " not found!"));
-
-        }
-        else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<>(newCartProduct, HttpStatus.CREATED);
-    }*/
 
     @DeleteMapping("/carts/{cartId}/products/delete")
     public ResponseEntity<List<Product>> clearProductsFromCart (@PathVariable (value="cartId") Long cartId) {
