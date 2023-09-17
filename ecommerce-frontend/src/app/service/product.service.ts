@@ -24,4 +24,5 @@ export class ProductService {
   // public addProductToCart(cartId: number, productId: number): Observable<Product> {
   //   return this.httpClient.post<Product>(`${this.apiServerUrl}/api/cart/${cartId}/products/add/${productId}`, {cartId, productId});
   // }
+
 }

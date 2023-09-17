@@ -8,6 +8,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
@@ -51,13 +52,18 @@ public class SecurityConfig {
                     config.setAllowedHeaders(Arrays.asList("*"));
                     return config;
                 })
+                /*.and()
+                .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                    .invalidSessionUrl("/login?expired")
+                    .sessionFixation().migrateSession()*/
                 .and()
-                .csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers("/api/**").permitAll()
-                .anyRequest().authenticated()
+                    .csrf().disable()
+                    .authorizeHttpRequests()
+                    .requestMatchers("/api/**").permitAll()
+                    .anyRequest().authenticated()
                 .and()
-                .httpBasic();
+                    .httpBasic();
 
 
         return http.build();

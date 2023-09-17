@@ -2,19 +2,25 @@ package com.abdulmo123.ecommerce.controller;
 
 import com.abdulmo123.ecommerce.exception.OrderNotFoundException;
 import com.abdulmo123.ecommerce.model.Cart;
+import com.abdulmo123.ecommerce.model.CurrentUserDetails;
 import com.abdulmo123.ecommerce.model.Product;
+import com.abdulmo123.ecommerce.model.User;
 import com.abdulmo123.ecommerce.repository.CartRepository;
 import com.abdulmo123.ecommerce.repository.OrderRepository;
 import com.abdulmo123.ecommerce.service.CartService;
 import com.abdulmo123.ecommerce.service.OrderService;
 import com.abdulmo123.ecommerce.service.ProductService;
+import com.abdulmo123.ecommerce.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -29,6 +35,9 @@ public class CartController {
 
     @Autowired
     private final ProductService productService;
+
+    @Autowired
+    private UserService userService;
 
     private static final String CART_ID_ATTRIBUTE = "cartId";
 
@@ -60,9 +69,18 @@ public class CartController {
     }*/
 
     @PostMapping("/carts/add")
-    public ResponseEntity<Cart> addCart(@RequestBody Cart cart) {
-        Cart newCart = cartService.addCart(cart);
-        return new ResponseEntity<>(newCart, HttpStatus.CREATED);
+    public ResponseEntity<Cart> addCart(@RequestBody Map<String, Long> request) {
+        Long userId = request.get("userId");
+        /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = ((CurrentUserDetails) authentication.getPrincipal()).getUser();*/
+
+        User currentUser = userService.findUserById(userId);
+//        Cart newCart = cartService.addCart(cart);
+        Cart newCart = new Cart();
+        newCart.setUser(currentUser);
+
+        Cart savedCart = cartService.addCart(newCart);
+        return new ResponseEntity<>(savedCart, HttpStatus.CREATED);
     }
 
     @PutMapping("/carts/update/{id}")

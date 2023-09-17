@@ -5,6 +5,8 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Cart } from 'src/app/model/cart.model';
 import { CartService } from 'src/app/service/cart.service';
 import { Router } from '@angular/router';
+import { OrderService } from 'src/app/service/order.service';
+import { Order } from 'src/app/model/order';
 
 @Component({
   selector: 'app-home',
@@ -15,11 +17,12 @@ export class HomeComponent {
   products: Product[] = [];
   carts: Cart[] = [];
   cart: Cart | undefined;
+  order: Order | undefined;
   productByCatArr: Product[] = [];
   private currentCartId: number | undefined;
-  
 
-  constructor (private productService: ProductService, private cartService: CartService, private router: Router) {}
+
+  constructor (private orderService: OrderService, private productService: ProductService, private cartService: CartService, private router: Router) {}
   ngOnInit() {
     this.getAllProducts();
     this.getAllCarts();
@@ -64,6 +67,41 @@ export class HomeComponent {
     // this.carts = this.cart?.cartProducts!;
   }
 
+  logout() {
+    localStorage.removeItem('userId');
+    // clear and then delete the existing cart and remove cartId in localStorage
+    const cartId = localStorage.getItem('cartId');
+    const orderId = localStorage.getItem('orderId');
+    if (orderId !== null) {
+      this.orderService.deleteOrder(+orderId!).subscribe(
+        (response: Order) => {
+          this.order = response;
+          console.log(this.order);
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      )
+    }
+    if(cartId !== null) {
+      this.cartService.deleteCart(+cartId!).subscribe(
+        (response: Cart) => {
+          this.cart = response;
+          console.log(this.cart);
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      )
+    }
+
+    localStorage.removeItem('cartId');
+    localStorage.removeItem('orderId');
+    // this.cartService.deletecart
+    console.log("logout successful!")
+    this.router.navigate(['/login']);
+  }
+
   public getAllProductsByCategory(categoryId: number): void {
     this.productService.getAllProductsByCategoryId(categoryId).subscribe(
       (response: Product[]) => {
@@ -93,53 +131,53 @@ export class HomeComponent {
 
 
   public onCartAdd(productId: number) : void {
-    // check if cart id doesn't exist (indicates that cart doesn't exist)
-    // if (!this.cart?.id || this.cart?.cartProducts.length === 0) 
-    if (localStorage.getItem('cartId') === null) {
-      // create a new cart
-      this.cartService.createCart().subscribe(
-        (newCart: Cart) => {
-          this.cart = newCart;
-          localStorage.setItem('cartId', JSON.stringify(this.cart.id!))
-          console.log("new cart created!" + newCart);
-          // add the product to the new cart
-          this.addProductToCart(productId);
-          console.log("product added to new cart!");
-        },
-        (error: HttpErrorResponse) => {
-          alert(error.message);
-        }
-      );
+    const userId = localStorage.getItem('userId');
+
+    if(userId) {
+      // check if cart id doesn't exist (indicates that cart doesn't exist)
+      if (localStorage.getItem('cartId') === null) {
+        // create a new cart
+        this.cartService.createCart(+userId).subscribe(
+          (newCart: Cart) => {
+            this.cart = newCart;
+            localStorage.setItem('cartId', JSON.stringify(this.cart.id!))
+            console.log("new cart created!" + newCart);
+            // add the product to the new cart
+            this.addProductToCart(productId);
+            console.log("product added to new cart!");
+          },
+          (error: HttpErrorResponse) => {
+            alert(error.message);
+          }
+        );
+      }
+      else {
+        // add product to existing cart
+        this.addProductToCart(productId);
+        console.log('product added to exisiting cart!');
+      }
     }
     else {
-      // add product to existing cart
-      this.addProductToCart(productId);
-      console.log('product added to exisiting cart!');
+      console.log("user is not logged in or user id not available!");
     }
   }
 
   private addProductToCart(productId: number): void {
-    // adds the product to the cart
     var newInt = localStorage.getItem('cartId')
-    
+
     this.currentCartId = +newInt!;
     this.cartService.addProductToCart(this.currentCartId!, productId).subscribe(
       () => {
         console.log("product id is : " + productId);
         console.log("producted added to cart!");
-        // this.getCartById(this.cart?.id!);
-        // this.carts.push(this.cart?.cartProducts())
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
     )
 
-    // this.carts.push(this.cart?.cartProducts)
     console.log("all the carts ===> " + this.carts);
-    // this.carts.push(this.cart.cartProducts);
     console.log("cart array: ===> " + this.carts.length);
-    // console.log("products in cart:" + this.cart?.cartProducts?.length);
     this.getAllCarts();
   }
 

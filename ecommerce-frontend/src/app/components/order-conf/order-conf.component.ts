@@ -26,10 +26,11 @@ export class OrderConfComponent {
   order: Order | undefined;
   formattedDate: string | undefined;
   dateObj: string | number | Date | undefined;
-  
+  loggedInUserId: number | null = parseInt(localStorage.getItem('userId') || '');
+
   constructor(private router: Router, private cartDataService: CartDataService, private orderService: OrderService, private cartService: CartService, private userService: UserService) {}
-  
-  ngOnInit() { 
+
+  ngOnInit() {
     this.getAllCarts();
     this.getAllOrders().subscribe((orders) => {
       console.log("Orders loaded:", orders);
@@ -59,7 +60,7 @@ export class OrderConfComponent {
       }),
       catchError((error: HttpErrorResponse) => {
         alert(error.message);
-        throw error; 
+        throw error;
       })
     );
   }
@@ -90,12 +91,12 @@ export class OrderConfComponent {
 
   getQuantityForProduct(productId: number) {
     const cartData = this.cartData;
-  
+
     const cartProduct = cartData?.find(item => item.productId === productId);
     if (cartProduct) {
       return cartProduct.quantity;
     }
-  
+
     return 0;
   }
 

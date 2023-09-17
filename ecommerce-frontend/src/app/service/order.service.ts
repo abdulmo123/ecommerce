@@ -24,4 +24,8 @@ export class OrderService {
   public createOrder(): Observable<Order> {
     return this.httpClient.post<Order>(`${this.apiServerUrl}/api/orders/add`, {});
   }
+
+  public deleteOrder(orderId: number): Observable<Order> {
+    return this.httpClient.delete<Order>(`${this.apiServerUrl}/api/orders/delete/${orderId}`, {});
+  }
 }

@@ -28,6 +28,7 @@ export class OrderComponent {
   constructor(public orderService: OrderService, private cartService: CartService, private cartDataService: CartDataService, private userService: UserService, private router: Router) {}
 
   ngOnInit() {
+    console.log("order page?")
     this.getAllCarts();
     this.getAllOrders();
     this.getAllUsers();
@@ -48,9 +49,11 @@ export class OrderComponent {
   }
 
   public getAllCarts(): void {
+    console.log(".... getting all carts .... ")
     this.cartService.getAllCarts().subscribe(
       (response: Cart[]) => {
         this.carts = response;
+        console.log(this.carts)
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -118,12 +121,12 @@ export class OrderComponent {
 
   getQuantityForProduct(productId: number) {
     const cartData = this.cartData;
-  
+
     const cartProduct = cartData?.find(item => item.productId === productId);
     if (cartProduct) {
       return cartProduct.quantity;
     }
-  
+
     return 0;
   }
 

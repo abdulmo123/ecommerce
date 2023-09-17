@@ -54,42 +54,67 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="m-sm-4">
-                            <form>
-                                <small>fields marked with an asterisk (<span style="color: red">*</span>) are
+                            <form #signupForm="ngForm" (ngSubmit)="handleSignUp()">
+                                <small>Fields marked with an asterisk (<span style="color: red">*</span>) are
                                     required</small>
                                 <br>
+
                                 <div class="form-group">
-                                    <label>First Name <span style="color: red">*</span></label>
-                                    <input class="form-control form-control-lg" type="text" name="fname"
-                                        placeholder="Enter first name" required>
+                                    <label for="firstName">First Name <span style="color: red">*</span></label>
+                                    <input class="form-control form-control-lg" type="text" id="firstName"
+                                        name="firstName" [(ngModel)]="user.firstName" required>
+                                    <!-- <div
+                                        *ngIf="signupForm.controls.firstName.invalid && signupForm.controls.firstName.touched">
+                                        <div *ngIf="signupForm.controls.firstName.errors.required">First Name is
+                                            required.</div>
+                                    </div> -->
                                 </div>
+
                                 <div class="form-group">
-                                    <label>Last Name <span style="color: red">*</span></label>
-                                    <input class="form-control form-control-lg" type="text" name="lname"
-                                        placeholder="Enter last name" required>
+                                    <label for="lastName">Last Name <span style="color: red">*</span></label>
+                                    <input class="form-control form-control-lg" type="text" id="lastName"
+                                        name="lastName" [(ngModel)]="user.lastName" required>
                                 </div>
+
                                 <div class="form-group">
-                                    <label>Phone Number</label>
-                                    <input class="form-control form-control-lg" type="text" name="phonenumber"
-                                        placeholder="Enter phone number">
+                                    <label for="phoneNumber">Phone Number</label>
+                                    <input class="form-control form-control-lg" type="text" id="phoneNumber"
+                                        name="phoneNumber" [(ngModel)]="user.phoneNumber">
                                 </div>
+
                                 <div class="form-group">
-                                    <label>Home Address</label>
-                                    <input class="form-control form-control-lg" type="text" name="homeaddress"
-                                        placeholder="Enter home address">
+                                    <label for="homeAddress">Home Address</label>
+                                    <input class="form-control form-control-lg" type="text" id="homeAddress"
+                                        name="homeAddress" [(ngModel)]="user.address">
                                 </div>
+
                                 <div class="form-group">
-                                    <label>Email <span style="color: red">*</span></label>
-                                    <input class="form-control form-control-lg" type="email" name="email"
-                                        placeholder="Enter email" required>
+                                    <label for="email">Email <span style="color: red">*</span></label>
+                                    <input class="form-control form-control-lg" type="email" id="email" name="email"
+                                        [(ngModel)]="user.email" required>
+                                    <!-- Display validation error messages for email -->
+                                    <!-- <div
+                                        *ngIf="signupForm.controls.email.invalid && signupForm.controls.email.touched">
+                                        <div *ngIf="signupForm.controls.email.errors.required">Email is required.</div>
+                                        <div *ngIf="signupForm.controls.email.errors.email">Invalid email format.</div>
+                                    </div> -->
                                 </div>
+
                                 <div class="form-group">
-                                    <label>Password <span style="color: red">*</span></label>
-                                    <input class="form-control form-control-lg" type="password" name="password"
-                                        placeholder="Enter password" required>
+                                    <label for="password">Password <span style="color: red">*</span></label>
+                                    <input class="form-control form-control-lg" type="password" id="password"
+                                        name="password" [(ngModel)]="user.password" required>
+                                    <!-- Display validation error message if the field is required and empty -->
+                                    <!-- <div
+                                        *ngIf="signupForm.controls.password.invalid && signupForm.controls.password.touched">
+                                        <div *ngIf="signupForm.controls.password.errors.required">Password is required.
+                                        </div>
+                                    </div> -->
                                 </div>
+
                                 <div class="text-center mt-3">
-                                    <a class="btn btn-lg btn-outline-primary btn-block">Sign up</a>
+                                    <button [disabled]="signupForm.invalid" type="submit"
+                                        class="btn btn-lg btn-outline-secondary btn-block">Sign up</button>
                                 </div>
                             </form>
                         </div>

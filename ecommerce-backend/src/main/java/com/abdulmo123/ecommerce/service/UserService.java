@@ -1,5 +1,7 @@
 package com.abdulmo123.ecommerce.service;
 
+import com.abdulmo123.ecommerce.exception.UserNotFoundException;
+import com.abdulmo123.ecommerce.generator.PasswordGenerator;
 import com.abdulmo123.ecommerce.model.CurrentUserDetails;
 import com.abdulmo123.ecommerce.model.User;
 import com.abdulmo123.ecommerce.repository.UserRepository;
@@ -28,10 +30,12 @@ public class UserService implements UserDetailsService {
         return userRepository.findByConfirmationToken(confirmationToken);
     }*/
 
-    public void saveUser(User user) {
+    public User saveUser(User user) {
+        PasswordGenerator passwordGenerator = new PasswordGenerator();
         String pn = user.getPhoneNumber();
         user.setPhoneNumber(pn.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3"));
-        userRepository.save(user);
+        user.setPassword(passwordGenerator.encodePassword(user.getPassword()));
+        return userRepository.save(user);
     }
 
     public List<User> getAllUsers() {
@@ -51,5 +55,10 @@ public class UserService implements UserDetailsService {
     public boolean isValidUser(String username, String password) {
         User user = userRepository.findByEmail(username);
         return user != null && user.getPassword().equals(password);
+    }
+
+    public User findUserById(Long id) {
+        return userRepository.findUserById(id)
+                .orElseThrow(() -> new UserNotFoundException("User with id: " + id + " not found!"));
     }
 }

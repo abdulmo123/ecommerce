@@ -22,13 +22,17 @@ public class Cart implements Serializable {
     @JoinColumn(name="cart_id")
     private List<Product> cartProducts = new ArrayList<>();
 
+    @OneToOne
+    @JoinColumn(name="user_id")
+    private User user;
 
     public Cart () {}
 
-    public Cart(String name, double currentPrice, List<Product> cartProducts) {
+    public Cart(String name, double currentPrice, List<Product> cartProducts, User user) {
         this.name = name;
         this.currentPrice = currentPrice;
         this.cartProducts = cartProducts;
+        this.user = user;
     }
 
     public Long getId() {
@@ -63,6 +67,14 @@ public class Cart implements Serializable {
         this.cartProducts = cartProducts;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Cart{" +
@@ -70,6 +82,7 @@ public class Cart implements Serializable {
                 ", name=" + name +
                 ", current price='" + currentPrice + '\'' +
                 ", products in cart='" + cartProducts + '\'' +
+                ", user='" + user + '\'' +
                 '}';
     }
 }

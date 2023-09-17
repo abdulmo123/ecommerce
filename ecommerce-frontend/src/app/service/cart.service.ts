@@ -25,8 +25,9 @@ export class CartService {
     return this.httpClient.post<Cart>(`${this.apiServerUrl}/api/carts/${cartId}/products/add/${productId}`, {cartId, productId});
   }
 
-  public createCart(): Observable<Cart> {
-    return this.httpClient.post<Cart>(`${this.apiServerUrl}/api/carts/add`, {});
+  public createCart(userId: number): Observable<Cart> {
+    const uid = { userId };
+    return this.httpClient.post<Cart>(`${this.apiServerUrl}/api/carts/add`, uid);
   }
 
   public clearProductsFromCart(cartId: number): Observable<Cart> {
@@ -35,5 +36,9 @@ export class CartService {
 
   public removeProductByIdFromCart(cartId: number, productId: number): Observable<Cart> {
     return this.httpClient.delete<Cart>(`${this.apiServerUrl}/api/carts/${cartId}/products/delete/${productId}`, {});
+  }
+
+  public deleteCart(cartId: number): Observable<Cart> {
+    return this.httpClient.delete<Cart>(`${this.apiServerUrl}/api/carts/delete/${cartId}`, {});
   }
 }

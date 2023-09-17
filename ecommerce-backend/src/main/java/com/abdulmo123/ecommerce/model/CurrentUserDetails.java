@@ -14,6 +14,10 @@ public class CurrentUserDetails implements UserDetails {
     public CurrentUserDetails(User user) {
         this.user = user;
     }
+/*
+    public CurrentUserDetails() {
+        super();
+    }*/
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -23,6 +27,18 @@ public class CurrentUserDetails implements UserDetails {
     @Override
     public String getPassword() {
         return user.getPassword();
+    }
+
+    public Long getId() {
+        return user.getId();
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

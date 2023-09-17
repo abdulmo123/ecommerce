@@ -4,6 +4,7 @@ import com.abdulmo123.ecommerce.exception.CartNotFoundException;
 import com.abdulmo123.ecommerce.exception.ProductNotFoundException;
 import com.abdulmo123.ecommerce.model.Cart;
 import com.abdulmo123.ecommerce.model.Product;
+import com.abdulmo123.ecommerce.model.User;
 import com.abdulmo123.ecommerce.repository.CartRepository;
 import com.abdulmo123.ecommerce.repository.ProductRepository;
 import jakarta.servlet.http.HttpSession;
@@ -24,6 +25,9 @@ public class CartService {
     private final CartRepository cartRepository;
 
     @Autowired
+    private HttpSession httpSession;
+
+    @Autowired
     private ProductRepository productRepository;
 
     public CartService(CartRepository cartRepository) {
@@ -40,6 +44,12 @@ public class CartService {
     }
 
     public Cart addCart(Cart cart) {
+
+        User user = (User) httpSession.getAttribute("user");
+        if (user != null) {
+            cart.setUser(user);
+        }
+
         cart.setName("CART" + 100000 + new Random().nextLong(999999));
         return cartRepository.save(cart);
     }

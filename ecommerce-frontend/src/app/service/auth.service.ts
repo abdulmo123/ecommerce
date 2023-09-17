@@ -10,14 +10,16 @@ import { User } from '../model/user.model';
 export class AuthService {
 
   constructor(private http: HttpClient) { }
-  
+
   login(user: User) {
     const headers = new HttpHeaders({
       Authorization: 'Basic ' +
       btoa(user.email + ':' + user.password)
     });
-
     return this.http.get(`${environment.hostUrl}/login`, { headers, responseType: 'text' as 'json' } )
-    
-  }  
+  }
+
+  signup(user: User) {
+    return this.http.post(`${environment.hostUrl}/api/users/save`, user);
+  }
 }
